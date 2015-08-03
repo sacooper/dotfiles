@@ -1,0 +1,10 @@
+[user]
+	name = Scott Cooper
+	email = scott.cooper2@mail.mcgill.ca
+[push]
+	default = simple
+[alias]
+	lc = log ORIG_HEAD.. --stat --no-merges
+	log1 = log --pretty=oneline
+	unstage = reset HEAD --
+	undo-commit = reset --soft HEAD~1

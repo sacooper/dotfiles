@@ -1,0 +1,58 @@
+# Easier navigation: .., ..., ...., ....., ~ and -
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+alias ~="cd ~" # `cd` is probably faster to type though
+alias -- -="cd -"
+
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
+
+# One of @janmoesen’s ProTip™s
+for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
+    alias "$method"="lwp-request -m '$method'"
+done
+
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
+alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+
+alias sudo='sudo '
+
+
+alias diskuse='df -h | grep --color=never -e /dev/sd -e Filesystem'
+alias ksp='primusrun /home/scott/KSP_linux/KSP.x86_64'
+alias sl='sl -e'
+alias LS='LS -e'
+alias sqlmap='python /opt/sqlmap/sqlmap.py'
+alias burpsuite='java -jar /opt/burpsuite_free_v1.6.jar'
+alias mcgill='cd ~/Dropbox/Programming/McGill'
+alias lessc='less -R'
+alias play='mplayer -fs'
+
+megaplay() {
+	if [ -n "$1" ]; then
+		megaget "$1" --path - | vlc -
+	else
+		echo "usage: megaplay Path/To/File/On/Mega"
+	fi
+}
+
+
+PRIMARY='104.236.7.239'
+
+RUST_SRC_PATH=/usr/local/src/rust/src
+alias fuck='$(thefuck $(fc -ln -1))'
+alias mplayer='primusrun mplayer'
+
+isprime() {
+	perl -wle 'print "Prime" if (1 x shift) !~ /^1?$|^(11+?)\1+$/' $1
+}
+
+alias sync_tc='rsync --progress -h  /home/scott/TC $PRIMARY:/home/scott/TC'
