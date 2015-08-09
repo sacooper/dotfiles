@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-ignore = [".", "..", ".git", "bootstrap.rb", "README.md", "LICENSE"]
+ignore = [".", "..", ".git", "bootstrap.rb", "README.md", "LICENSE", "bootstrap.sh"]
 files = Dir.entries(".")
 to_sync = files - ignore
 
