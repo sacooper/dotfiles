@@ -60,11 +60,11 @@ TEXT
         "color"     : "\#88ABC4"
     },
     {
-        "full_text" : " ${downspeed wlan0}/s ",
+        "full_text" : " ${downspeed wlan0}/s ",
         "color"     : "\#88ABC4"
     },
     {
-        "full_text" : " ${upspeed wlan0}/s ",
+        "full_text" : " ${upspeed wlan0}/s ",
         "color"     : "\#88ABC4"
     },
     {
