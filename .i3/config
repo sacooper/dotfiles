@@ -15,7 +15,8 @@ exec xrandr --output eDP1 --mode 1920x1080
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+font pango: sans bold 9
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
@@ -153,10 +154,12 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        status_command i3status
+        #status_command i3status
         #status_command i3blocks
+        status_command $HOME/.conky/conky-i3bar
 	    position top                            
-        font pango:M+ 1mn medium 9                
+        font pango:M+ 1mn medium 10, FontAwesome 10
+
     	tray_output eDP1
 }
 
