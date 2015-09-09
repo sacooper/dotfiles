@@ -30,9 +30,15 @@ override_utf8_locale no
 # number of cpu samples to average
 # set to 1 to disable averaging
 cpu_avg_samples 2
+template0 {"full_text": " \1 ${battery BAT1}", "color": \2}
 
 TEXT
 [
+    {
+        "full_text": " ▣ $cpu% ",
+        "color"     : ${if_match ${memperc}>80}"\#ff0000"${else}"\#88ABC4"${endif},
+        "name":"cpu"
+    },
     {
         "icon"      : "$HOME/.i3/xbmicons/mem.xbm",
         "full_text" : "${mem} [ ${memperc}% ] ",
@@ -43,7 +49,6 @@ TEXT
         "color"     : ${if_match ${fs_used_perc /}>90}"\#ff0000"${else}"\#88ABC4"${endif}
     },
     {
-        "icon"      : "$HOME/.i3/xbmicons/temp.xbm",
         "full_text" : "🌡 ${acpitemp}°C ",
         "color"     : ${if_match ${acpitemp}>55}"\#ff0000"${else}"\#88ABC4"${endif}
     },
@@ -71,9 +76,26 @@ TEXT
         "full_text" : " ${exec amixer -D pulse get Master -M | grep -oP '\d*%' | head -n1} ",
         "color"     : "\#88ABC4"
     },
+    ${if_existing /sys/class/power_supply/ACAD/online 1}
+        ${template0  "\\#88ABC4"},
+    $else
+        ${if_match ${battery_percent BAT1} <= 25}
+            ${template0 ▂ "\\#FF0000"},
+        $else
+            ${if_match ${battery_percent BAT1} <= 50}
+                ${template0 ▅ "\\#88ABC4"},
+            $else
+                ${if_match ${battery_percent BAT1} <= 75}
+                    ${template0 ▇ "\\#88ABC4"},
+                $else
+                    ${template0 █ "\\#88ABC4"},
+                $endif
+            $endif
+        $endif
+    $endif
     {
-        "full_text" : " ${battery_percent BAT1}% "  ,
-        "color"     : ${if_match ${battery_percent BAT1}<15}"\#ff0000"${else}"\#88ABC4"${endif}
+        "full_text" : "${exec /home/scott/bin/agenda}",
+        "color"     : "\#88ABC4"
     },
     {
         "full_text" : " ${time %A %d %b} ${time %R} ",

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ -f /tmp/gcalcli_agenda.txt ]; then 
+    head -2 /tmp/gcalcli_agenda.txt | tail -1 | sed 's/\s\s\+/ - /g'
+else
+    gcalcli --nocolor --nostarted agenda "$(date -Iseconds)" > /tmp/gcalcli_agenda.txt &
+fi

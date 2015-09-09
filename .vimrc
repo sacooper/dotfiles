@@ -46,6 +46,7 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'scrooloose/nerdtree'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'The-NERD-Commenter'
+"Plugin 'lervag/vimtex'
 "Plugin 'ying17zi/vim-live-latex-preview'
 
 call vundle#end()            " required
@@ -81,8 +82,8 @@ au BufNewFile,BufRead *.rs set filetype=rust
 
 set t_Co=256
 
-autocmd Filetype tex setl updatetime=2000
-let g:livepreview_previewer = 'evince'
+autocmd Filetype tex setl updatetime=1000
+let g:livepreview_previewer = 'evince' 
 nmap <leader>p :LLPStartPreview<cr>
 
 set background=dark

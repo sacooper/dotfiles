@@ -12,7 +12,6 @@ def bckup(file)
     File.rename(file, File.join(OLD_DIR, File.basename(file)))
 end
 
-
 to_sync.each do |f|
     orig = File.join(Dir.pwd, f)
     lnk = File.join(Dir.home, f)

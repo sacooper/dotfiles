@@ -169,7 +169,6 @@ EEOOFF
     return 0
 endfunction
 
-
 let s:init_msg = s:Initialize()
 
 if type(s:init_msg) == type('')
