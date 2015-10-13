@@ -5,6 +5,6 @@
 	default = simple
 [alias]
 	lc = log ORIG_HEAD.. --stat --no-merges
-	log1 = log --pretty=oneline
+	log1 = log --pretty=oneline -5
 	unstage = reset HEAD --
 	undo-commit = reset --soft HEAD~1

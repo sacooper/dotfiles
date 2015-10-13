@@ -128,6 +128,9 @@ for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
 done;
 unset file;
 
+export TERMCMD='i3-sensible-terminal'
+export CPATH=':/usr/lib/openmpi/include/'
+
 #source .bash_prompt
 #source .aliases
 #source .functions

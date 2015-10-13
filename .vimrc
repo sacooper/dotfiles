@@ -2,17 +2,16 @@ let mapleader = " "
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
+
 let c='a'
 while c <= 'z'
-	exec "set <A-".c.">=\e".c
-	exec "imap \e".c." <A-".c.">"
-	let c = nr2char(1+char2nr(c))
+    exec "set <A-".c.">=\e".c
+    exec "imap \e".c." <A-".c.">"
+    let c = nr2char(1+char2nr(c))
 endw
 
 set timeout ttimeoutlen=50
 
-filetype indent on
-filetype plugin on
 set tabstop=4
 set shiftwidth=4
 set expandtab
@@ -23,6 +22,10 @@ inoremap <A-j> <Esc>:m .+1<CR>==gi
 inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
+
+nnoremap <S-Tab> <<
+inoremap <S-Tab> <C-d>
+vnoremap <S-Tab> <
 
 nnoremap <leader>h :tabp<CR>
 nnoremap <leader>l :tabn<CR>
@@ -59,7 +62,6 @@ let $RUST_SRC_PATH="/usr/local/src/rust/src"
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-set nocompatible      " We're running Vim, not Vi!
 set number
 syntax on             " Enable syntax highlighting
 filetype on           " Enable filetype detection
@@ -85,6 +87,32 @@ set t_Co=256
 autocmd Filetype tex setl updatetime=1000
 let g:livepreview_previewer = 'evince' 
 nmap <leader>p :LLPStartPreview<cr>
+nnoremap <leader>i i_<Esc>r
+nnoremap <leader>a a_<Esc>r
 
+nnoremap <C-l> <C-Right>
+nnoremap <C-h> <C-Left>
+inoremap <C-l> <C-Right>
+inoremap <C-h> <C-Left>
+
+set foldenable          " enable folding
+set foldmethod=indent
 set background=dark
+
+set cursorline
+set wildmenu
+set incsearch           " search as characters are entered
+set hlsearch            " highlight matches
+" turn off search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+set foldlevelstart=10   " open most folds by default
+
+nnoremap <leader>f za
+
+" move vertically by visual line
+nnoremap j gj
+nnoremap k gk
+
 colorscheme lucius 
+
+" vim:foldmethod=marker:foldlevel=0

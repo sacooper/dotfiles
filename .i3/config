@@ -168,7 +168,7 @@ bindsym $mod+r mode "resize"
 bar {
         #status_command i3status
         #status_command i3blocks
-        status_command $HOME/.conky/conky-i3bar
+        status_command $HOME/.conky/conky-i3bar 
 	    position top                            
         font pango:M+ 1mn medium 10, FontAwesome 10
 
@@ -178,7 +178,7 @@ bar {
 exec --no-startup-id nm-applet
 exec --no-startup-id transmission-gtk -m
 exec --no-startup-id nitrogen --restore	
-exec --no-startup-id owncloud
+#exec --no-startup-id owncloud
 exec --no-startup-id indicator-sound-switcher
 
 bindsym XF86PowerOff exec i3lock -c 000000 && sudo pm-suspend
@@ -198,6 +198,9 @@ exec /usr/bin/gnome-settings-daemon
 exec shutter --min_at_startup
 exec dropbox start
 
+# Moving workspaces between monitors
+bindsym $mod+n move workspace to output left
+bindsym $mod+m move workspace to output right
 #bindsym $mod+t workspace 1; exec thunderbird
 
 for_window [class="^.*"] border pixel 0 

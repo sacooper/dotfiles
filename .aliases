@@ -49,10 +49,16 @@ PRIMARY='104.236.7.239'
 
 RUST_SRC_PATH=/usr/local/src/rust/src
 alias fuck='$(thefuck $(fc -ln -1))'
-alias mplayer='primusrun mplayer'
+#alias mplayer='optirun mplayer'
 
 isprime() {
 	perl -wle 'print "Prime" if (1 x shift) !~ /^1?$|^(11+?)\1+$/' $1
 }
 
 alias sync_tc='rsync --progress -h  /home/scott/TC $PRIMARY:/home/scott/TC'
+
+alias muslrustc='/opt/rust-musl/musldist/bin/rustc --target=x86_64-unknown-linux-musl'
+alias rubber_fix="rubber -c 'setlist arguments --shell-escape'"
+alias here="terminator &>/dev/null & disown"
+
+export LD_LIBRARY_PATH="/opt/rust-musl/musldist/lib:$LD_LIBRARY_PATH"

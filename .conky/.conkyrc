@@ -30,39 +30,43 @@ override_utf8_locale no
 # number of cpu samples to average
 # set to 1 to disable averaging
 cpu_avg_samples 2
-template0 {"full_text": " \1 ${battery BAT1}", "color": \2}
+template0 {"full_text": " \1 ${battery_short BAT1} ${if_match "${battery_short BAT1}"!="F"}(${battery_time BAT1})$endif", "color": \2}
 
 TEXT
 [
     {
         "full_text": " ▣ $cpu% ",
-        "color"     : ${if_match ${memperc}>80}"\#ff0000"${else}"\#88ABC4"${endif},
+        "color"     : ${if_match ${memperc}>80}"\#880000"${else}"\#88ABC4"${endif},
         "name":"cpu"
+    },
+    {
+        "full_text" : " ${exec updates} ",
+        "color"     : "\#88ABC4"
     },
     {
         "icon"      : "$HOME/.i3/xbmicons/mem.xbm",
         "full_text" : "${mem} [ ${memperc}% ] ",
-        "color"     : ${if_match ${memperc}>80}"\#ff0000"${else}"\#88ABC4"${endif}
+        "color"     : ${if_match ${memperc}>80}"\#880000"${else}"\#88ABC4"${endif}
     },
     {
-        "full_text" : " ${fs_used /} [ ${fs_used_perc /}% ] (${fs_free /} free)",
-        "color"     : ${if_match ${fs_used_perc /}>90}"\#ff0000"${else}"\#88ABC4"${endif}
+        "full_text" : " ${fs_free /}",
+        "color"     : ${if_match ${fs_used_perc /}>90}"\#880000"${else}"\#88ABC4"${endif}
     },
     {
         "full_text" : "🌡 ${acpitemp}°C ",
-        "color"     : ${if_match ${acpitemp}>55}"\#ff0000"${else}"\#88ABC4"${endif}
+        "color"     : ${if_match ${acpitemp}>75}"\#880000"${else}${if_match ${acpitemp}>55}"\#FF8C00"$else"\#88ABC4"${endif}$endif
     },
     {
         "full_text" : " ${uptime_short} ",
         "color"     : "\#88ABC4"
     },
     {
-        "full_text" : " ${if_up tun0}Up${else}Down${endif}",
-        "color"     : "\#88ABC4"
+        "full_text" : "",
+        "color"     : ${if_up tun0}"\#008800"$else"\#880000"$endif
     },
     {
-        "full_text" : " ${wireless_essid wlan0} [ ${addr wlan0} ] ",
-        "color"     : "\#88ABC4"
+        "full_text" : " ${if_up wlan0}${wireless_essid wlan0} [ ${addr wlan0} ]$endif",
+        "color"     : ${if_up wlan0}"\#008800"$else"\#880000"$endif
     },
     {
         "full_text" : " ${downspeed wlan0}/s ",
@@ -79,26 +83,48 @@ TEXT
     ${if_existing /sys/class/power_supply/ACAD/online 1}
         ${template0  "\\#88ABC4"},
     $else
-        ${if_match ${battery_percent BAT1} <= 25}
-            ${template0 ▂ "\\#FF0000"},
+        ${if_match ${battery_percent BAT1} <= 12}
+            ${template0 ▁ "\\#880000"},
         $else
-            ${if_match ${battery_percent BAT1} <= 50}
-                ${template0 ▅ "\\#88ABC4"},
+            ${if_match ${battery_percent BAT1} <= 25}
+                ${template0 ▂ "\\#FF8C00"},
             $else
-                ${if_match ${battery_percent BAT1} <= 75}
-                    ${template0 ▇ "\\#88ABC4"},
+                ${if_match ${battery_percent BAT1} <= 37}
+                    ${template0 ▃ "\\#88ABC4"},
                 $else
-                    ${template0 █ "\\#88ABC4"},
+                    ${if_match ${battery_percent BAT1} <= 50}
+                        ${template0 ▄ "\\#88ABC4"},
+                    $else
+                        ${if_match ${battery_percent BAT1} <= 62}
+                            ${template0 ▅ "\\#88ABC4"},
+                        $else
+                            ${if_match ${battery_percent BAT1} <= 75}
+                                ${template0 ▆ "\\#88ABC4"},
+                            $else
+                                ${if_match ${battery_percent BAT1} <= 87}
+                                    ${template0 ▇ "\\#88ABC4"},
+                                $else
+                                    ${template0 █ "\\#88ABC4"},
+                                $endif
+                            $endif
+                        $endif
+                    $endif
                 $endif
             $endif
         $endif
     $endif
     {
-        "full_text" : "${exec /home/scott/bin/agenda}",
-        "color"     : "\#88ABC4"
+        "full_text" : " ${exec agenda}",
+        "color"     : "\#88ABC4",
+        "name"      : "agenda"
     },
     {
-        "full_text" : " ${time %A %d %b} ${time %R} ",
+        "full_text" : " TODO: ${exec todo -c } ",
+        "color"     : "\#88ABC4",
+        "name"      : "todo"
+    },
+    {
+        "full_text" : "${time %a %d %b %R}",
         "color"     : "\#88ABC4"
     },
     {
