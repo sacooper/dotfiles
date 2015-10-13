@@ -26,22 +26,31 @@ while read line; do
     x=$(echo "$line" | jshon -e x -u)
 
     if [ $PID -ne 0 ]; then
-        kill $PID
+        killall lemonbar
         PID=0
         continue
     fi
 
     if [ "$name" = "todo" ]; then
-        c=$(todo -c)
+        #c=$(todo -c)
         offset=1700
 
+        #i3-nagbar -t warning -m "$line" &>/dev/null
         if [ "$x" -ge 1920 ]; then
-            i3-nagbar -t warning -m "$line" &>/dev/null
             offset=3505
         fi
 
-        todo | sed 's/^\(.*\)*$/%{c}\1%{c}/' | lemonbar -p -d -g 200x"$(echo "20 + 20*$c" | bc)+$offset"+21 & 
-        PID=$!
+        #todo | sed 's/^\(.*\)*$/%{c}\1%{c}/' | lemonbar -p -d -g 200x"$(echo "20 + 20*$c" | bc)+$offset"+21 & 
+        #todo | sed 's/^\(.*\)*$/  \1/' | lemonbar -p -d -g 200x"$(echo "20 + 20*$c" | bc)+$offset"+21 & 
+        #todo | paste -s -d'\n' - | lemonbar -p -d -g 200x"$(echo "20 + 20*$c" | bc)+$offset"+21 & 
+        i=0
+        todo | while read t; do
+            #i3-nagbar -t warning -m "$t" &>/dev/null
+            echo "$t" | lemonbar -p -d -g "200x20+$offset+$((20*i+20))" &
+            i=$((i+1))
+        done
+        PID=1
+
     elif [ "$name" = "agenda" ]; then
         #txt=$(gcalcli agenda --nocolor)
         #c=$(echo "$txt" | wc -l)
