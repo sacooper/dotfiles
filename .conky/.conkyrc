@@ -62,11 +62,13 @@ TEXT
     },
     {
         "full_text" : "",
-        "color"     : ${if_up tun0}"\#008800"$else"\#880000"$endif
+        "color"     : ${if_up tun0}"\#008800"$else"\#880000"$endif,
+        "name"      : "vpn_${if_up tun0}up${else}down${endif}"
     },
     {
-        "full_text" : " ${if_up wlan0}${wireless_essid wlan0} [ ${addr wlan0} ]$endif",
-        "color"     : ${if_up wlan0}"\#008800"$else"\#880000"$endif
+        "full_text" : "  ",
+        "color"     : ${if_up wlan0}"\#008800"$else"\#880000"$endif,
+        "name"      : ${if_up wlan0}"wifi"$else""$endif
     },
     {
         "full_text" : " ${downspeed wlan0}/s ",
@@ -113,19 +115,16 @@ TEXT
             $endif
         $endif
     $endif
-    {
-        "full_text" : " ${exec agenda}",
-        "color"     : "\#88ABC4",
-        "name"      : "agenda"
-    },
+    ${if_match 4<=3}{"full_text" : " ${exec agenda}","color"     : "\#88ABC4","name"      : "agenda"},${endif}
     {
         "full_text" : " TODO: ${exec todo -c } ",
-        "color"     : "\#88ABC4",
+        "color"     : ${if_match ${exec todo | head -n 1 | grep -o '^[^:]*'} ${date +%Y-%m-%d}}"\#DD0000"$else"\#88ABC4"$endif,
         "name"      : "todo"
     },
     {
-        "full_text" : "${time %a %d %b %R}",
-        "color"     : "\#88ABC4"
+        "full_text" : " ${time %a %d %b %R}",
+        "color"     : "\#88ABC4",
+        "name"      : "time"
     },
     {
         "full_text" : ""
