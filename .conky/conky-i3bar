@@ -13,7 +13,20 @@ echo '[],'
 
 exec conky -c "$HOME/.conky/.conkyrc" &
 
-PID=0
+OPEN=0
+LAST=""
+
+offset() {
+    x="$1"
+    w="$2"
+    if [ "$x" -ge $((1920-w)) -a "$x" -le 1920 ]; then
+        echo $((1920-w))
+    elif [ "$x" -ge $((2*1920-w)) ]; then
+        echo $((2*1920-w))
+    else
+        echo "$x"
+    fi
+}
 
 while read line; do
     if [ "$line" = "[" ]; then
@@ -25,68 +38,82 @@ while read line; do
     name=$(echo "$line" | jshon -e name -u)
     x=$(echo "$line" | jshon -e x -u)
 
-    if [ $PID -ne 0 ]; then
+    if [ $OPEN -ne 0 ]; then
         killall lemonbar
-        PID=0
-        continue
+        OPEN=0
+
+        if [ "$name" = "$LAST" ]; then
+            continue
+        fi
     fi
 
     if [ "$name" = "todo" ]; then
         #c=$(todo -c)
         #offset=1700
+        w=350
+
+        x=$(offset "$x" "$w")
 
         #i3-nagbar -t warning -m "$line" &>/dev/null
-        if [ "$x" -ge $((1920-250)) -a "$x" -le 1920 ]; then
-            x=$((1920-250))
-        elif [ "$x" -ge $((2*1920-250)) ]; then
-            x=$((2*1920-250))
-        fi
 
-        #todo | sed 's/^\(.*\)*$/%{c}\1%{c}/' | lemonbar -p -d -g 200x"$(echo "20 + 20*$c" | bc)+$offset"+21 & 
-        #todo | sed 's/^\(.*\)*$/  \1/' | lemonbar -p -d -g 200x"$(echo "20 + 20*$c" | bc)+$offset"+21 & 
-        #todo | paste -s -d'\n' - | lemonbar -p -d -g 200x"$(echo "20 + 20*$c" | bc)+$offset"+21 & 
         i=0
-        todo | while read t; do
-            #i3-nagbar -t warning -m "$t" &>/dev/null
-            echo "  $t" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "250x20+$x+$((20*i+20))" &
+        todo -b | while read t; do
+            echo "  $t" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
             i=$((i+1))
         done
-        PID=1
-
-    #elif [ "$name" = "agenda" ]; then
-        #txt=$(gcalcli agenda --nocolor)
-        #c=$(echo "$txt" | wc -l)
-        #echo "$txt" | lemonbar -f -p -d -g 400x$(echo "20 + 20*$c" | bc)+1500+21 & 
-        #PID=$!
-        #chromium-browser --new-window 'https://calendar.google.com' &> /dev/null
+        OPEN=1
     elif [ "$name" = "wifi" ]; then
-        if [ "$x" -ge $((1920-250)) -a "$x" -le 1920 ]; then
-            x=$((1920-250))
-        elif [ "$x" -ge $((2*1920-250)) ]; then
-            x=$((2*1920-250))
-        fi
+        w=250
+        x=$(offset "$x" "$w")
 
-        iwconfig 2>/dev/null  | grep -o 'ESSID:".\+"' | sed 's/ESSID:"\(.\+\)"/  SSID: \1/' | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "200x20+$x+20" &
-        (echo -n '  Remote: '; dig +short myip.opendns.com @resolver1.opendns.com) | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "200x20+$x+40" &
-        ifconfig wlan0 | grep -o 'inet addr:\([0-9]\|\.\)\+' | grep -o '\([0-9]\|\.\)\+' | sed 's/^/  Local: /' | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "200x20+$x+60" &
+        iwconfig 2>/dev/null  | grep -o 'ESSID:".\+"' | sed 's/ESSID:"\(.\+\)"/  SSID: \1/' | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+20" &
+        (echo -n '  Remote: '; dig +short myip.opendns.com @resolver1.opendns.com) | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+40" &
+        ifconfig wlan0 | grep -o 'inet addr:\([0-9]\|\.\)\+' | grep -o '\([0-9]\|\.\)\+' | sed 's/^/  Local: /' | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+60" &
 
-        PID=1
+        OPEN=1
     elif [ "$name" = "vpn_up" ]; then
         nmcli con down id sacooper.io &>/dev/null &
     elif [ "$name" = "vpn_down" ]; then
         nmcli con up id sacooper.io &>/dev/null 
     elif [ "$name" = "time" ]; then
-        offset=350
-        if [ "$x" -ge $((offset)) -a "$x" -le 1920 ]; then
-            x=$((1920-offset))
-        elif [ "$x" -ge $((2*1920-offset)) ]; then
-            x=$((2*1920-offset))
-        fi
+        w=350
+        x=$(offset "$x" "$w")
         i=0;
         (grep -v '^$' /tmp/gcalcli_agenda.txt | sed 's/^\(... ... [[:digit:]]\+\)/\n%{+u}\1\n/' ) | tail -n+2| while read t; do
-            echo "  $t" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$offset""x20+$x+$((20*i+20))" &
+            echo "  $t" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
             i=$((i+1))
         done 
-        PID=1
+        OPEN=1
+    elif [ "$name" = "cpu" ]; then
+        w=250
+        x=$(offset "$x" "$w")
+        i=0;
+        ps -axo pid,%cpu,comm | sort -r -k2 | head -n10 | while read t; do
+            echo "  $t" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
+            i=$((i+1))
+        done
+        OPEN=1
+    elif [ "$name" = "mem" ]; then
+        w=250
+        x=$(offset "$x" "$w")
+        i=0;
+        ps -axo pid,%mem,comm | sort -r -k2 | head -n10 | while read t; do
+            echo "  $t" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
+            i=$((i+1))
+        done
+        OPEN=1
+    elif [ "$name" = "volume" ]; then 
+        amixer -D pulse set Master toggle &>/dev/null
+    elif [ "$name" = "music" ]; then
+        button=$(echo "$line" | jshon -e button -u)
+        if [ "$button" = "1" ]; then
+            mocp -G &>/dev/null
+        elif [ "$button" = "3" ]; then
+            mocp --next &>/dev/null
+        fi
+    fi
+
+    if [ "$OPEN" -eq 1 ]; then
+        LAST="$name"
     fi
 done

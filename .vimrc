@@ -113,6 +113,14 @@ nnoremap <leader>f za
 nnoremap j gj
 nnoremap k gk
 
-colorscheme lucius 
+nnoremap ; :
+
+" Make a simple "search" text object.
+vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
+    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+omap s :normal vs<CR>
+"
+"colorscheme lucius 
+colorscheme hybrid_reverse
 
 " vim:foldmethod=marker:foldlevel=0

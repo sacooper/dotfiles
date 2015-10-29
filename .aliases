@@ -58,7 +58,7 @@ isprime() {
 alias sync_tc='rsync --progress -h  /home/scott/TC $PRIMARY:/home/scott/TC'
 
 alias muslrustc='/opt/rust-musl/musldist/bin/rustc --target=x86_64-unknown-linux-musl'
-alias rubber_fix="rubber -c 'setlist arguments --shell-escape'"
+alias rubber_fix="openout_any=a rubber --unsafe -c 'setlist arguments --shell-escape'"
 alias here="terminator &>/dev/null & disown"
 
-export LD_LIBRARY_PATH="/opt/rust-musl/musldist/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="/usr/local/lib:/usr/local/lib/:/opt/rust-musl/musldist/lib:$LD_LIBRARY_PATH"

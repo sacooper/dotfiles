@@ -209,6 +209,7 @@ function countdown(){
      sleep 0.1
    done
 }
+
 function stopwatch(){
   date1=`date +%s`; 
    while true; do 
@@ -219,7 +220,7 @@ function stopwatch(){
 
 function set_disp(){
     if [ "$1" = "on" ]; then
-        xrandr --output HDMI1 --auto --left-of eDP1 --primary
+        xrandr --output HDMI1 --auto --left-of eDP1
     elif [ "$1" = "off" ]; then
         xrandr --output HDMI1 --off
     else
