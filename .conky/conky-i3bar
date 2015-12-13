@@ -33,6 +33,11 @@ while read line; do
         continue
     fi
 
+    #if [ "$(xrandr | grep 'HDMI1 connected')" -gt 0 ]; then
+        #xrandr --output HDMI1 --off
+    #else 
+        #xrandr --output HDMI1 --auto --left-of eDP1
+    #fi
     #line=$(echo "$line" | sed "s/^,//")
     line=${line/,/}
     name=$(echo "$line" | jshon -e name -u)
@@ -53,6 +58,7 @@ while read line; do
         w=350
 
         x=$(offset "$x" "$w")
+        x=$((x-w/2))
 
         #i3-nagbar -t warning -m "$line" &>/dev/null
 
@@ -65,6 +71,7 @@ while read line; do
     elif [ "$name" = "wifi" ]; then
         w=250
         x=$(offset "$x" "$w")
+        x=$((x - w/2))
 
         iwconfig 2>/dev/null  | grep -o 'ESSID:".\+"' | sed 's/ESSID:"\(.\+\)"/  SSID: \1/' | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+20" &
         (echo -n '  Remote: '; dig +short myip.opendns.com @resolver1.opendns.com) | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+40" &
@@ -87,29 +94,76 @@ while read line; do
     elif [ "$name" = "cpu" ]; then
         w=250
         x=$(offset "$x" "$w")
+        x=$((x-w/3))
         i=0;
-        ps -axo pid,%cpu,comm | sort -r -k2 | head -n10 | while read t; do
-            echo "  $t" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
+        ps -axo pid,%cpu,comm | sort -r -nk2 | head -n10 | tr -s ' ' | sed 's/^ *//' | while read t; do
+            a="$(echo "$t" | cut -f1 -d' ')"
+            b="$(echo "$t" | cut -f2 -d' ')"
+            c="$(echo "$t" | cut -f3 -d' ')"
+            printf "%7s %-5s %s" "$a:" "$b" "$c" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
+            #echo "  $t" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
             i=$((i+1))
         done
         OPEN=1
     elif [ "$name" = "mem" ]; then
         w=250
         x=$(offset "$x" "$w")
+        x=$((x-w/3))
         i=0;
-        ps -axo pid,%mem,comm | sort -r -k2 | head -n10 | while read t; do
-            echo "  $t" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
+        ps -axo pid,%mem,comm | sort -r -nk2 | head -n10 | tr -s ' ' | sed 's/^ *//' | while read t; do
+            a="$(echo "$t" | cut -f1 -d' ')"
+            b="$(echo "$t" | cut -f2 -d' ')"
+            c="$(echo "$t" | cut -f3 -d' ')"
+            printf "%7s %-5s %s" "$a:" "$b" "$c" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
+            #echo "  $t" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
             i=$((i+1))
         done
         OPEN=1
     elif [ "$name" = "volume" ]; then 
-        amixer -D pulse set Master toggle &>/dev/null
+        button=$(echo "$line" | jshon -e button -u)
+        if [ "$button" = "1" ]; then
+            amixer -D pulse sset Master 5%+ &>/dev/null
+        elif [ "$button" = "3" ]; then
+            amixer -D pulse sset Master 5%- &>/dev/null
+        fi
     elif [ "$name" = "music" ]; then
         button=$(echo "$line" | jshon -e button -u)
         if [ "$button" = "1" ]; then
             mocp -G &>/dev/null
         elif [ "$button" = "3" ]; then
             mocp --next &>/dev/null
+        fi
+    elif [ "$name" = "updates" ]; then
+        terminator --command='echo "Updating"; sudo apt-get update && sudo apt-get upgrade && rm /tmp/ubuntu_updates.txt' &>/dev/null & disown
+    elif [ "$name" = "weather" ]; then
+        w=300
+        x=$(offset "$x" "$w")
+        x=$((x-w/3))
+        i=0
+        tail -n+2 /tmp/weather.txt | while read line; do
+            echo "  $line" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
+            i=$((i+1))
+        done
+        OPEN=1
+    elif [ "$name" = "mail" ]; then
+        button=$(echo "$line" | jshon -e button -u)
+        if [ "$button" = "1" ]; then
+            max=$(for x in "$HOME/Mail/"*; do echo "$(basename $x)" | wc -c; done | sort -rn | head -n1)
+            max=$((max+4))
+            w=$((max*2*5))
+            x=$(offset "$x" "$w")
+            x=$((x-w/3))
+            i=0
+            for acct in "$HOME/Mail/"*; do
+                c=$(find "$acct/INBOX/new" -type f | wc -l)
+                l=$(basename "$acct")
+                #echo "  $l:$c" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
+                printf "  %-""$max""s%s" "$l:" "$c" | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+$((20*i+20))" &
+                i=$((i+1))
+            done
+            OPEN=1
+        elif [ "$button" = "3" ]; then
+            pkill offlineimap --signal SIGUSR1
         fi
     fi
 

@@ -1,6 +1,7 @@
 let mapleader = " "
 set nocompatible              " be iMproved, required
 filetype off                  " required
+set t_Co=256
 
 
 let c='a'
@@ -55,6 +56,8 @@ Plugin 'The-NERD-Commenter'
 call vundle#end()            " required
 filetype plugin indent on    " requird
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+
 set hidden
 let g:racer_cmd = "/home/scott/Programming/Rust/racer/target/release/racer"
 let $RUST_SRC_PATH="/usr/local/src/rust/src"
@@ -82,11 +85,6 @@ let g:NERDTreeMapPreview="<F4>"
 
 au BufNewFile,BufRead *.rs set filetype=rust
 
-set t_Co=256
-
-autocmd Filetype tex setl updatetime=1000
-let g:livepreview_previewer = 'evince' 
-nmap <leader>p :LLPStartPreview<cr>
 nnoremap <leader>i i_<Esc>r
 nnoremap <leader>a a_<Esc>r
 
@@ -117,10 +115,30 @@ nnoremap ; :
 
 " Make a simple "search" text object.
 vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
-    \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
+            \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
+
+command Here silent !here
+
+nnoremap <leader>. :CtrlPTag<cr>
+
 "
 "colorscheme lucius 
-colorscheme hybrid_reverse
+"colorscheme hybrid_reverse
+"colorscheme zenburn
 
-" vim:foldmethod=marker:foldlevel=0
+colorscheme apprentice
+set tags=./tags,tags;/
+
+nnoremap <C-K> :call HighlightNearCursor()<CR>
+function HighlightNearCursor()
+    if !exists("s:highlightcursor")
+        match Todo /\k*\%#\k*/
+        let s:highlightcursor=1
+    else
+        match None
+        unlet s:highlightcursor
+    endif
+endfunction
+
+set modeline

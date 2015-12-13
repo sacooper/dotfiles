@@ -4,7 +4,7 @@ background no
 max_text_width 0
 
 # Update interval in seconds
-update_interval 1.0
+update_interval 2.0
 
 # This is the number of times Conky will update before quitting.
 # Set to zero to run forever.
@@ -39,13 +39,19 @@ TEXT
         "name"      : "music"
     },
     {
-        "full_text" : " ▣ $cpu% ",
-        "color"     : ${if_match ${memperc}>80}"\#880000"${else}"\#88ABC4"${endif},
-        "name"      : "cpu"
+        "full_text" : "Mail: ${exec find $HOME/Mail/*/INBOX/new -type f | wc -l}",
+        "color"     : "\#88ABC4",
+        "name"      : "mail"
     },
     {
         "full_text" : " ${exec updates} ",
-        "color"     : "\#88ABC4"
+        "color"     : "\#88ABC4",
+        "name"      : "updates"
+    },
+    {
+        "full_text" : " ▣ $cpu% ",
+        "color"     : ${if_match ${memperc}>80}"\#880000"${else}"\#88ABC4"${endif},
+        "name"      : "cpu"
     },
     {
         "icon"      : "$HOME/.i3/xbmicons/mem.xbm",
@@ -55,12 +61,15 @@ TEXT
     },
     {
         "full_text" : " ${fs_free /}",
-        "color"     : ${if_match ${fs_used_perc /}>90}"\#880000"${else}"\#88ABC4"${endif}
+        "color"     : ${if_match ${fs_used_perc /}>90}"\#880000"${else}"\#88ABC4"${endif},
+        "name"      : "hdd"
     },
+    ${if_match 4<=3}
     {
         "full_text" : "🌡 ${acpitemp}°C ",
         "color"     : ${if_match ${acpitemp}>75}"\#880000"${else}${if_match ${acpitemp}>55}"\#FF8C00"$else"\#88ABC4"${endif}$endif
     },
+    $endif
     {
         "full_text" : " ${uptime_short} ",
         "color"     : "\#88ABC4"
@@ -122,10 +131,17 @@ TEXT
         $endif
     $endif
     ${if_match 4<=3}{"full_text" : " ${exec agenda}","color"     : "\#88ABC4","name"      : "agenda"},${endif}
+    ${if_match ${exec todo -c} > 0}
     {
-        "full_text" : " TODO: ${exec todo -c } ",
-        "color"     : "\#88ABC4",
+        "full_text" : " TODO: ${exec todo -c } (${exec todo -t}) ",
+        "color"     : ${if_match ${exec todo -t} > 0} "\#88ABC4" $else "\#DD0000" $endif,
         "name"      : "todo"
+    },
+    $endif
+    {
+        "full_text" : " ${exec head -n1 /tmp/weather.txt 2>/dev/null }",
+        "color"     : "\#88ABC4",
+        "name"      : "weather"
     },
     {
         "full_text" : " ${time %a %d %b %R}",

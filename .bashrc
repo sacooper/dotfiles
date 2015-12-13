@@ -64,13 +64,14 @@ fi
 #unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
-case "$TERM" in
-    xterm*|rxvt*)
-        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-        ;;
-    *)
-        ;;
-esac
+#case "$TERM" in
+    #xterm*|rxvt*)
+        #PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        #;;
+    #*)
+        #;;
+#esac
+
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
@@ -128,6 +129,7 @@ for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
 done;
 unset file;
 
+export TERM='screen-256color'
 export TERMCMD='i3-sensible-terminal'
 export CPATH=':/usr/lib/openmpi/include/'
 
@@ -135,4 +137,10 @@ export CPATH=':/usr/lib/openmpi/include/'
 #source .aliases
 #source .functions
 
-#PATH="./bin:$PATH"
+PATH="$HOME/bin:$PATH"
+
+export NVM_DIR="/home/scott/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# cargo-extras
+PATH="/home/scott/.multirust/toolchains/beta/cargo/bin:$PATH"

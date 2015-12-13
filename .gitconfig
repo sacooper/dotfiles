@@ -8,3 +8,8 @@
 	log1 = log --pretty=oneline -5
 	unstage = reset HEAD --
 	undo-commit = reset --soft HEAD~1
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false
