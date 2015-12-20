@@ -30,49 +30,51 @@ override_utf8_locale no
 # set to 1 to disable averaging
 cpu_avg_samples 2
 template0 {"full_text": " \1 ${battery_short BAT1} ${if_match "${battery_short BAT1}"!="F"}(${battery_time BAT1})$endif", "color": \2}
+# template1 88ABC4
+template1 3ab4ff
 
 TEXT
 [
     {
         "full_text" : " ${if_match "${moc_song}"!="no song"}${moc_song}: ${moc_artist} (${moc_curtime}/${moc_totaltime}) $endif",
-        "color"     : "\#88ABC4",
+        "color": "\#$template1",
         "name"      : "music"
     },
     {
         "full_text" : "Mail: ${exec find $HOME/Mail/*/INBOX/new -type f | wc -l}",
-        "color"     : "\#88ABC4",
+        "color"     : ${if_match ${exec find $HOME/Mail/*/INBOX/new -type f | wc -l} == 0}"\#$template1"$else"\#FFFF00"$endif,
         "name"      : "mail"
     },
     {
         "full_text" : " ${exec updates} ",
-        "color"     : "\#88ABC4",
+        "color"     : "\#$template1",
         "name"      : "updates"
     },
     {
         "full_text" : " ▣ $cpu% ",
-        "color"     : ${if_match ${memperc}>80}"\#880000"${else}"\#88ABC4"${endif},
+        "color"     : ${if_match ${memperc}>80}"\#880000"${else}"\#$template1"${endif},
         "name"      : "cpu"
     },
     {
         "icon"      : "$HOME/.i3/xbmicons/mem.xbm",
         "full_text" : "${mem} [ ${memperc}% ] ",
-        "color"     : ${if_match ${memperc}>80}"\#880000"${else}"\#88ABC4"${endif},
+        "color"     : ${if_match ${memperc}>80}"\#880000"${else}"\#$template1"${endif},
         "name"      : "mem"
     },
     {
         "full_text" : " ${fs_free /}",
-        "color"     : ${if_match ${fs_used_perc /}>90}"\#880000"${else}"\#88ABC4"${endif},
+        "color"     : ${if_match ${fs_used_perc /}>90}"\#880000"${else}"\#$template1"${endif},
         "name"      : "hdd"
     },
     ${if_match 4<=3}
     {
         "full_text" : "🌡 ${acpitemp}°C ",
-        "color"     : ${if_match ${acpitemp}>75}"\#880000"${else}${if_match ${acpitemp}>55}"\#FF8C00"$else"\#88ABC4"${endif}$endif
+        "color"     : ${if_match ${acpitemp}>75}"\#880000"${else}${if_match ${acpitemp}>55}"\#FF8C00"$else"\#$template1"${endif}$endif
     },
     $endif
     {
         "full_text" : " ${uptime_short} ",
-        "color"     : "\#88ABC4"
+        "color"     : "\#$template1"
     },
     {
         "full_text" : "",
@@ -86,19 +88,19 @@ TEXT
     },
     {
         "full_text" : " ${downspeed wlan0}/s ",
-        "color"     : "\#88ABC4"
+        "color"     : "\#$template1"
     },
     {
         "full_text" : " ${upspeed wlan0}/s ",
-        "color"     : "\#88ABC4"
+        "color"     : "\#$template1"
     },
     {
         "full_text" : " ${exec amixer -D pulse get Master -M | grep -oP '\d*%' | head -n1} ",
-        "color"     : "\#88ABC4",
+        "color"     : "\#$template1",
         "name"      : "volume"
     },
     ${if_existing /sys/class/power_supply/ACAD/online 1}
-        ${template0  "\\#88ABC4"},
+        ${template0  "\\#$template1"},
     $else
         ${if_match ${battery_percent BAT1} <= 12}
             ${template0 ▁ "\\#880000"},
@@ -107,21 +109,21 @@ TEXT
                 ${template0 ▂ "\\#FF8C00"},
             $else
                 ${if_match ${battery_percent BAT1} <= 37}
-                    ${template0 ▃ "\\#88ABC4"},
+                    ${template0 ▃ "\\#$template1"},
                 $else
                     ${if_match ${battery_percent BAT1} <= 50}
-                        ${template0 ▄ "\\#88ABC4"},
+                        ${template0 ▄ "\\#$template1"},
                     $else
                         ${if_match ${battery_percent BAT1} <= 62}
-                            ${template0 ▅ "\\#88ABC4"},
+                            ${template0 ▅ "\\#$template1"},
                         $else
                             ${if_match ${battery_percent BAT1} <= 75}
-                                ${template0 ▆ "\\#88ABC4"},
+                                ${template0 ▆ "\\#$template1"},
                             $else
                                 ${if_match ${battery_percent BAT1} <= 87}
-                                    ${template0 ▇ "\\#88ABC4"},
+                                    ${template0 ▇ "\\#$template1"},
                                 $else
-                                    ${template0 █ "\\#88ABC4"},
+                                    ${template0 █ "\\#$template1"},
                                 $endif
                             $endif
                         $endif
@@ -130,22 +132,22 @@ TEXT
             $endif
         $endif
     $endif
-    ${if_match 4<=3}{"full_text" : " ${exec agenda}","color"     : "\#88ABC4","name"      : "agenda"},${endif}
+    ${if_match 4<=3}{"full_text" : " ${exec agenda}","color"     : "\#$template1","name"      : "agenda"},${endif}
     ${if_match ${exec todo -c} > 0}
     {
         "full_text" : " TODO: ${exec todo -c } (${exec todo -t}) ",
-        "color"     : ${if_match ${exec todo -t} > 0} "\#88ABC4" $else "\#DD0000" $endif,
+        "color"     : ${if_match ${exec todo -t} > 0} "\#$template1" $else "\#DD0000" $endif,
         "name"      : "todo"
     },
     $endif
     {
         "full_text" : " ${exec head -n1 /tmp/weather.txt 2>/dev/null }",
-        "color"     : "\#88ABC4",
+        "color"     : "\#$template1",
         "name"      : "weather"
     },
     {
         "full_text" : " ${time %a %d %b %R}",
-        "color"     : "\#88ABC4",
+        "color"     : "\#$template1",
         "name"      : "time"
     },
     {

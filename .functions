@@ -227,3 +227,23 @@ function set_disp(){
         echo "USAGE: set_disp [on, off]"
     fi
 }
+
+function compile_tex(){
+    printf "Progress: [                    ]  0%%"
+    for i in {1..5}; do
+        pdflatex_fix "$1" &>/dev/null;
+        printf "\rProgress: ["
+        for j in {1..5}; do
+            if [ $j -lt $i ]; then 
+                printf "===="
+            elif [ $j -eq $i ]; then
+                printf "===>"
+            else
+                printf "    "
+            fi
+        done
+        printf "] %2s%%" $((i*20))
+    done
+    echo
+    rubber --clean "$1"
+}

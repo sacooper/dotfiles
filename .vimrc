@@ -122,12 +122,11 @@ command Here silent !here
 
 nnoremap <leader>. :CtrlPTag<cr>
 
-"
 "colorscheme lucius 
 "colorscheme hybrid_reverse
 "colorscheme zenburn
-
 colorscheme apprentice
+
 set tags=./tags,tags;/
 
 nnoremap <C-K> :call HighlightNearCursor()<CR>
@@ -140,5 +139,7 @@ function HighlightNearCursor()
         unlet s:highlightcursor
     endif
 endfunction
+
+nnoremap <leader>shrug i¯\_(ツ)_/¯<esc>
 
 set modeline

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+name="$(find .password-store/ -type f -iname '*.gpg'| sed 's|[^/]*/||' | sed 's/.gpg$//' | dmenu -fn '*-14')"
+pass "$name" -c &>/dev/null
+

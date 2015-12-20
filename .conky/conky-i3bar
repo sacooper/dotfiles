@@ -11,7 +11,7 @@ echo '[],'
 
 # Now send blocks with information forever:
 
-exec conky -c "$HOME/.conky/.conkyrc" &
+exec conky -c "$HOME/.conky/.conkyrc" 2>/dev/null &
 
 OPEN=0
 LAST=""

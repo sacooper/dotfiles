@@ -64,3 +64,5 @@ alias dtmp='tmp="$(pwd)"; if [[ "$tmp" == "/tmp/"* ]]; then cd - 2>/dev/null || 
 #alias here="terminator &>/dev/null & disown"
 
 export LD_LIBRARY_PATH="/usr/local/lib:/usr/local/lib/:/opt/rust-musl/musldist/lib:$LD_LIBRARY_PATH"
+
+export SHRUG='¯\_(ツ)_/¯'
