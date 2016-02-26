@@ -1,3 +1,4 @@
+"set term=xterm-256color
 let mapleader = " "
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -28,9 +29,21 @@ nnoremap <S-Tab> <<
 inoremap <S-Tab> <C-d>
 vnoremap <S-Tab> <
 
-nnoremap <leader>h :tabp<CR>
-nnoremap <leader>l :tabn<CR>
+"nnoremap <leader>h :tabp<CR>
+"nnoremap <leader>l :tabn<CR>
+nnoremap <C-h> :tabp<CR>
+nnoremap <C-l> :tabn<CR>
+inoremap <C-h> <Esc>:tabp<CR>
+inoremap <C-l> <Esc>:tabn<CR>
 
+" Reorder tabs
+"nnoremap <C-S-h> :tabm -1<CR>
+"nnoremap <C-S-l> :tabm +1<CR>
+"inoremap <C-S-h> <Esc>:tabm -1<CR>
+"inoremap <C-S-l> <Esc>:tabm +1<CR>
+
+" Map 0 to logical start of line 
+nnoremap 0 ^
 
 
 " set the runtime path to include Vundle and initialize
@@ -41,6 +54,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
+Plugin 'chriskempson/base16-vim'
 Plugin 'rust-lang/rust.vim'
 Plugin 'phildawes/racer'
 Plugin 'tpope/vim-fugitive'
@@ -50,6 +64,9 @@ Bundle 'vim-ruby/vim-ruby'
 Bundle 'scrooloose/nerdtree'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'The-NERD-Commenter'
+Plugin 'SirVer/ultisnips'
+Plugin 'honza/vim-snippets'
+Plugin 'airblade/vim-rooter'
 "Plugin 'lervag/vimtex'
 "Plugin 'ying17zi/vim-live-latex-preview'
 
@@ -88,10 +105,10 @@ au BufNewFile,BufRead *.rs set filetype=rust
 nnoremap <leader>i i_<Esc>r
 nnoremap <leader>a a_<Esc>r
 
-nnoremap <C-l> <C-Right>
-nnoremap <C-h> <C-Left>
-inoremap <C-l> <C-Right>
-inoremap <C-h> <C-Left>
+"nnoremap <C-l> <C-Right>
+"nnoremap <C-h> <C-Left>
+"inoremap <C-l> <C-Right>
+"inoremap <C-h> <C-Left>
 
 set foldenable          " enable folding
 set foldmethod=indent
@@ -122,10 +139,16 @@ command Here silent !here
 
 nnoremap <leader>. :CtrlPTag<cr>
 
+let base16colorspace=256  " Access colors present in 256 colorspace
+
 "colorscheme lucius 
 "colorscheme hybrid_reverse
 "colorscheme zenburn
-colorscheme apprentice
+"colorscheme apprentice
+"colorscheme solarized
+"colorscheme codeschool " GVIM COLOR :( 
+"colorscheme base16-codeschool
+colorscheme base16-ocean
 
 set tags=./tags,tags;/
 
@@ -141,5 +164,18 @@ function HighlightNearCursor()
 endfunction
 
 nnoremap <leader>shrug i¯\_(ツ)_/¯<esc>
+
+"Ocaml Stuff
+let g:opamshare = substitute(system('opam config var share'),'\n$','','''')
+execute "set rtp+=" . g:opamshare . "/merlin/vim"
+
+let g:syntastic_ocaml_checkers = ['merlin']
+let g:syntastic_ignore_files = ['\.mll$','\.mly$']
+
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+let g:rooter_patterns = [ '.git', 'Cargo.toml' ]
 
 set modeline

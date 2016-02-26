@@ -61,7 +61,7 @@ alias muslrustc='/opt/rust-musl/musldist/bin/rustc --target=x86_64-unknown-linux
 alias rubber_fix="openout_any=a rubber --unsafe -c 'setlist arguments --shell-escape'"
 alias tmp='cd `mktemp -d`'
 alias dtmp='tmp="$(pwd)"; if [[ "$tmp" == "/tmp/"* ]]; then cd - 2>/dev/null || cd; rm -rf $tmp; else echo "$tmp not a temporary directory"; fi'
-#alias here="terminator &>/dev/null & disown"
+alias bindgen='/home/scott/Programming/Rust/rust-bindgen/target/debug/bindgen'
 
 export LD_LIBRARY_PATH="/usr/local/lib:/usr/local/lib/:/opt/rust-musl/musldist/lib:$LD_LIBRARY_PATH"
 

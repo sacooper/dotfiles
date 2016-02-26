@@ -27,7 +27,8 @@ font pango: sans bold 9
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+#bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec gnome-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -168,6 +169,16 @@ bindsym $mod+r mode "resize"
 bar {
     #status_command i3status -t
     #status_command i3blocks
+    colors {
+        background #2b303b
+        separator  #65737e
+
+        # tango <workclass> <border> <backg> <text>
+        focused_workspace   #65737e #c0c5ce #2b303b
+        active_workspace   #65737e #c0c5ce #2b303b
+        inactive_workspace  #65737e #2b303b #c0c5ce
+        urgent_workspace    #bf616a #bf616a #c0c5ce
+    }
     height 20
     status_command $HOME/.conky/conky-i3bar 
     position top                            
@@ -192,8 +203,6 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 #bindsym $mod+x exec chromium-browser
 bindsym $mod+x exec uzbl
 bindsym $mod+Shift+x exec UZBL_NO_HISTORY=1 uzbl-tabbed p.p
-bindsym $mod+Shift+p exec chromium-browser --incognito
-bindsym $mod+Shift+d exec i3-sensible-terminal -e ranger
 bindsym $mod+p exec mocp -G
 bindsym $mod+c exec clip_pass
 
@@ -273,22 +282,21 @@ mode "$mode_gaps_outer" {
 
 bindsym $mod+Shift+w exec i3-input -F 'rename workspace to "%s"' -P 'New name: '
 
-# color defines for zenburn styled i3
-# set $bg     #2c2c2e
-# set $fg     #9f9f9f
-# set $hi     #efef8f
-# set $ac     #a0afa0
-# set $tx     #040404
-# set $ia     #8f8f8f
-# set $be     #8faf9f
-# set $yw     #ccdc90
-# set $gn     #88b090
-# set $rd     #e89393
+# color defines for base16 ocean dark
+set $bg     #2b303b
+set $fg     #c0c5ce
+set $hi     #c0c5ce
+set $ac     #c0c5ce
+set $tx     #2b303b
+set $ia     #8f8f8f
+set $yw     #ebcb8b
+set $gn     #a3be8c
+set $rd     #bf616a
 #
-# # set some nice colors      border     background  text
-# client.focused              $ac        $ac         $tx
-# client.unfocused            $bg        $bg         $ia
-# client.focused_inactive     $bg        $bg         $ac
-# client.urgent               $rd        $rd         $tx
+# set some nice colors      border     background  text
+client.focused              $ac        $ac         $tx
+client.unfocused            $bg        $bg         $ia
+client.focused_inactive     $bg        $bg         $ac
+client.urgent               $rd        $rd         $tx
 
 # vim: set foldlevel=0 :

@@ -129,8 +129,8 @@ for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
 done;
 unset file;
 
-export TERM='screen-256color'
-export TERMCMD='i3-sensible-terminal'
+export TERMCMD='gnome-terminal'
+export TERMINAL="$TERMCMD"
 export CPATH=':/usr/lib/openmpi/include/'
 
 #source .bash_prompt
@@ -139,8 +139,10 @@ export CPATH=':/usr/lib/openmpi/include/'
 
 PATH="$HOME/bin:$PATH"
 
-export NVM_DIR="/home/scott/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
 # cargo-extras
 PATH="/home/scott/.multirust/toolchains/beta/cargo/bin:$PATH"
+
+# Base16 Shell
+#BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
+BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
+[[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"

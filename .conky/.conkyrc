@@ -29,9 +29,23 @@ override_utf8_locale no
 # number of cpu samples to average
 # set to 1 to disable averaging
 cpu_avg_samples 2
+
+# Battery template
 template0 {"full_text": " \1 ${battery_short BAT1} ${if_match "${battery_short BAT1}"!="F"}(${battery_time BAT1})$endif", "color": \2}
+
+# Main text color
 # template1 88ABC4
-template1 3ab4ff
+# template1 3ab4ff
+template1 c0c5ce
+
+# GREEN text color
+template2 a3be8c
+
+# RED text color
+template3 bf616a
+
+# YELLOW text
+template4 ebcb8b
 
 TEXT
 [
@@ -42,7 +56,7 @@ TEXT
     },
     {
         "full_text" : "Mail: ${exec find $HOME/Mail/*/INBOX/new -type f | wc -l}",
-        "color"     : ${if_match ${exec find $HOME/Mail/*/INBOX/new -type f | wc -l} == 0}"\#$template1"$else"\#FFFF00"$endif,
+        "color"     : ${if_match ${exec find $HOME/Mail/*/INBOX/new -type f | wc -l} == 0}"\#$template1"$else"\#$template4"$endif,
         "name"      : "mail"
     },
     {
@@ -52,24 +66,24 @@ TEXT
     },
     {
         "full_text" : " ▣ $cpu% ",
-        "color"     : ${if_match ${memperc}>80}"\#880000"${else}"\#$template1"${endif},
+        "color"     : ${if_match ${memperc}>80}"\#$template3"${else}"\#$template1"${endif},
         "name"      : "cpu"
     },
     {
         "icon"      : "$HOME/.i3/xbmicons/mem.xbm",
         "full_text" : "${mem} [ ${memperc}% ] ",
-        "color"     : ${if_match ${memperc}>80}"\#880000"${else}"\#$template1"${endif},
+        "color"     : ${if_match ${memperc}>80}"\#$template3"${else}"\#$template1"${endif},
         "name"      : "mem"
     },
     {
         "full_text" : " ${fs_free /}",
-        "color"     : ${if_match ${fs_used_perc /}>90}"\#880000"${else}"\#$template1"${endif},
+        "color"     : ${if_match ${fs_used_perc /}>90}"\#$template3"${else}"\#$template1"${endif},
         "name"      : "hdd"
     },
     ${if_match 4<=3}
     {
         "full_text" : "🌡 ${acpitemp}°C ",
-        "color"     : ${if_match ${acpitemp}>75}"\#880000"${else}${if_match ${acpitemp}>55}"\#FF8C00"$else"\#$template1"${endif}$endif
+        "color"     : ${if_match ${acpitemp}>75}"\#$template3"${else}${if_match ${acpitemp}>55}"\#FF8C00"$else"\#$template1"${endif}$endif
     },
     $endif
     {
@@ -78,12 +92,12 @@ TEXT
     },
     {
         "full_text" : "",
-        "color"     : ${if_up tun0}"\#008800"$else"\#880000"$endif,
+        "color"     : ${if_up tun0}"\#$template2"$else"\#$template3"$endif,
         "name"      : "vpn_${if_up tun0}up${else}down${endif}"
     },
     {
         "full_text" : "  ",
-        "color"     : ${if_up wlan0}"\#008800"$else"\#880000"$endif,
+        "color"     : ${if_up wlan0}"\#$template2"$else"\#$template3"$endif,
         "name"      : ${if_up wlan0}"wifi"$else""$endif
     },
     {
@@ -103,7 +117,7 @@ TEXT
         ${template0  "\\#$template1"},
     $else
         ${if_match ${battery_percent BAT1} <= 12}
-            ${template0 ▁ "\\#880000"},
+            ${template0 ▁ "\\#$template3"},
         $else
             ${if_match ${battery_percent BAT1} <= 25}
                 ${template0 ▂ "\\#FF8C00"},
@@ -136,15 +150,17 @@ TEXT
     ${if_match ${exec todo -c} > 0}
     {
         "full_text" : " TODO: ${exec todo -c } (${exec todo -t}) ",
-        "color"     : ${if_match ${exec todo -t} > 0} "\#$template1" $else "\#DD0000" $endif,
+        "color"     : ${if_match ${exec todo -t} > 0} "\#$template1" $else "\#$template3" $endif,
         "name"      : "todo"
     },
     $endif
+    ${if_match "${exec head -n1 /tmp/weather.txt 2>/dev/null}" != ""}
     {
-        "full_text" : " ${exec head -n1 /tmp/weather.txt 2>/dev/null }",
+        "full_text" : "${exec head -n1 /tmp/weather.txt 2>/dev/null }",
         "color"     : "\#$template1",
         "name"      : "weather"
     },
+    $endif
     {
         "full_text" : " ${time %a %d %b %R}",
         "color"     : "\#$template1",
