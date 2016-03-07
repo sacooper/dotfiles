@@ -77,7 +77,8 @@ set runtimepath^=~/.vim/bundle/ctrlp.vim
 
 set hidden
 let g:racer_cmd = "/home/scott/Programming/Rust/racer/target/release/racer"
-let $RUST_SRC_PATH="/usr/local/src/rust/src"
+"let $RUST_SRC_PATH="/usr/local/src/rust/src"
+let $RUST_SRC_PATH="/tmp"
 
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
@@ -177,5 +178,9 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 let g:rooter_patterns = [ '.git', 'Cargo.toml' ]
+
+"Powerline
+set rtp+=/usr/lib/python3.5/site-packages/powerline/bindings/vim
+set laststatus=2
 
 set modeline

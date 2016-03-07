@@ -1,0 +1,15 @@
+#!/bin/bash
+DEVICE="$1"
+MOUNTPONIT="$2"
+
+usage(){
+    echo "Usage: $0 device mountpoint"
+}
+
+if [ -z "$DEVICE" -o -z "$MOUNTPOINT" ]; then
+    usage
+    exit 1
+fi
+
+sudo cryptsetup open --type tcrypt "$device" tcrypt
+sudo mount /dev/mapper/tcrypt "$mountpoint"

@@ -45,15 +45,8 @@ megaplay() {
 }
 
 
-PRIMARY='104.236.7.239'
 
-RUST_SRC_PATH=/usr/local/src/rust/src
 alias fuck='$(thefuck $(fc -ln -1))'
-#alias mplayer='optirun mplayer'
-
-isprime() {
-	perl -wle 'print "Prime" if (1 x shift) !~ /^1?$|^(11+?)\1+$/' $1
-}
 
 alias sync_tc='rsync --progress -h  /home/scott/TC $PRIMARY:/home/scott/TC'
 
@@ -62,7 +55,3 @@ alias rubber_fix="openout_any=a rubber --unsafe -c 'setlist arguments --shell-es
 alias tmp='cd `mktemp -d`'
 alias dtmp='tmp="$(pwd)"; if [[ "$tmp" == "/tmp/"* ]]; then cd - 2>/dev/null || cd; rm -rf $tmp; else echo "$tmp not a temporary directory"; fi'
 alias bindgen='/home/scott/Programming/Rust/rust-bindgen/target/debug/bindgen'
-
-export LD_LIBRARY_PATH="/usr/local/lib:/usr/local/lib/:/opt/rust-musl/musldist/lib:$LD_LIBRARY_PATH"
-
-export SHRUG='¯\_(ツ)_/¯'

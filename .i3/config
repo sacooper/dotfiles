@@ -11,12 +11,12 @@
 
 set $mod Mod4
 
-exec xrandr --output eDP1 --mode 1920x1080
+#exec xrandr --output eDP1 --mode 1920x1080
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below. ISO 10646 = Unicode
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-font pango: sans bold 9
+font pango: sans regular 12
 # The font above is very space-efficient, that is, it looks good, sharp and
 # clear in small sizes. However, if you need a lot of unicode glyphs or
 # right-to-left text rendering, you should instead use pango for rendering and
@@ -182,18 +182,18 @@ bar {
     height 20
     status_command $HOME/.conky/conky-i3bar 
     position top                            
-    font pango:Terminus Bold Semi-Condensed 11, FontAwesome 11
+    font pango: FontAwesome 14
     tray_output primary
 }
 
 exec --no-startup-id nm-applet
 exec --no-startup-id transmission-gtk -m
-exec --no-startup-id nitrogen --restore	
+# exec --no-startup-id nitrogen --restore	
 #exec --no-startup-id owncloud
 exec --no-startup-id indicator-sound-switcher
 
-bindsym XF86PowerOff exec i3lock -c 000000 && sudo pm-suspend
-bindsym XF86Sleep exec i3lock -c 000000
+bindsym $mod+Control+l exec i3lock -c 000000 
+bindsym XF86Sleep exec i3lock -c 000000 && sudo pm-suspend
 bindsym XF86AudioRaiseVolume exec amixer -D pulse sset Master unmute && amixer -D pulse  sset Master 5%+
 bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master unmute && amixer -D pulse  sset Master 5%-
 # bindsym XF86AudioMute exec amixer -D pulse sset Master toggle
@@ -201,8 +201,8 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 #bindsym $mod+x exec chromium-browser
-bindsym $mod+x exec uzbl
-bindsym $mod+Shift+x exec UZBL_NO_HISTORY=1 uzbl-tabbed p.p
+bindsym $mod+x exec uzbl-tabbed
+bindsym $mod+Shift+x exec chromium
 bindsym $mod+p exec mocp -G
 bindsym $mod+c exec clip_pass
 

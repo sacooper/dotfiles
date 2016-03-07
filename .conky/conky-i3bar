@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Get any variables we want
+source ~/.vars
+
 # Send the header so that i3bar knows we want to use JSON:
 echo '{"version":1,"click_events":true}'
 
@@ -87,7 +90,7 @@ while read line; do
         #ifconfig wlan0 | grep -o 'inet addr:\([0-9]\|\.\)\+' | grep -o '\([0-9]\|\.\)\+' | sed 's/^/  Local: /' | lemonbar -f "-misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1" -p -d -g "$w""x20+$x+60" &
         iwconfig 2>/dev/null  | grep -o 'ESSID:".\+"' | sed 's/ESSID:"\(.\+\)"/  SSID: \1/' | $LEMONCMD -g "$w""x20+$x+20" &
         (echo -n '  Remote: '; dig +short myip.opendns.com @resolver1.opendns.com) | $LEMONCMD -g "$w""x20+$x+40" &
-        ifconfig wlan0 | grep -o 'inet addr:\([0-9]\|\.\)\+' | grep -o '\([0-9]\|\.\)\+' | sed 's/^/  Local: /' | $LEMONCMD -g "$w""x20+$x+60" &
+        ifconfig "$WIFI_ADAPTER" | grep -o 'inet \([0-9]\|\.\)\+' | grep -o '\([0-9]\|\.\)\+' | sed 's/^/  Local: /' | $LEMONCMD -g "$w""x20+$x+60" &
 
         OPEN=1
     elif [ "$name" = "vpn_up" ]; then

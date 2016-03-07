@@ -76,7 +76,7 @@ TEXT
         "name"      : "mem"
     },
     {
-        "full_text" : " ${fs_free /}",
+        "full_text" : " ${fs_free /home}",
         "color"     : ${if_match ${fs_used_perc /}>90}"\#$template3"${else}"\#$template1"${endif},
         "name"      : "hdd"
     },
@@ -97,15 +97,15 @@ TEXT
     },
     {
         "full_text" : "  ",
-        "color"     : ${if_up wlan0}"\#$template2"$else"\#$template3"$endif,
-        "name"      : ${if_up wlan0}"wifi"$else""$endif
+        "color"     : ${if_up wlp8s0}"\#$template2"$else"\#$template3"$endif,
+        "name"      : ${if_up wlp8s0}"wifi"$else""$endif
     },
     {
-        "full_text" : " ${downspeed wlan0}/s ",
+        "full_text" : " ${downspeed wlp8s0}/s ",
         "color"     : "\#$template1"
     },
     {
-        "full_text" : " ${upspeed wlan0}/s ",
+        "full_text" : " ${upspeed wlp8s0}/s ",
         "color"     : "\#$template1"
     },
     {

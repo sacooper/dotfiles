@@ -1,3 +1,7 @@
+isprime() {
+	perl -wle 'print "Prime" if (1 x shift) !~ /^1?$|^(11+?)\1+$/' $1
+}
+
 # Simple calculator
 function calc() {
     local result="";
@@ -220,11 +224,11 @@ function stopwatch(){
 
 function set_disp(){
     if [ "$1" = "on" ]; then
-        xrandr --output HDMI1 --auto --left-of eDP1
+        xrandr --output "$HDMI" --auto --left-of "$MAIN_SCREEN"
     elif [ "$1" = "off" ]; then
-        xrandr --output HDMI1 --off
+        xrandr --output "$HDMI" --off
     elif [ "$1" = "mirror" ]; then
-        xrandr --output HDMI1 --same-as eDP1 --auto
+        xrandr --output "$HDMI" --same-as "$MAIN_SCREEN" --auto
     else
         echo "USAGE: set_disp [on, off]"
     fi
@@ -252,4 +256,14 @@ function compile_tex(){
 
 function set_vol() {
     pacmd set-sink-volume 1 "$(calc $1*65535 | sed 's/\..*//')"
+}
+
+function aur_dl(){
+    if [ -z "$1" ]; then
+        echo "Usage: $0 aur_package_name"
+        return 1
+    fi
+
+    sudo git clone "https://aur.archlinux.org/$1.git"
+    sudo chmod a+rw "$1"
 }

@@ -1,5 +1,6 @@
 #!/bin/bash
 
-name="$(find .password-store/ -type f -iname '*.gpg'| sed 's|[^/]*/||' | sed 's/.gpg$//' | dmenu -fn '*-14')"
+#name="$(find /home/scott/.password-store/ -type f -iname '*.gpg'| sed 's|[^/]*/||' | sed 's/.gpg$//' | dmenu -fn '*-14')"
+name="$(find /home/scott/.password-store/ -type f -iname '*.gpg'| sed 's|.*\.password-store/||' | sed 's/.gpg$//' | dmenu -fn '*-14')"
 pass "$name" -c &>/dev/null
 
