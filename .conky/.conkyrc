@@ -50,7 +50,8 @@ template4 ebcb8b
 TEXT
 [
     {
-        "full_text" : " ${if_match "${moc_song}"!="no song"}${moc_song}: ${moc_artist} (${moc_curtime}/${moc_totaltime}) $endif",
+        #"full_text" : " ${if_match "${moc_song}"!="no song"}${moc_song}: ${moc_artist} (${moc_curtime}/${moc_totaltime}) $endif",
+        "full_text" : " ${exec ncmpcpp --current-song} ",
         "color": "\#$template1",
         "name"      : "music"
     },
@@ -60,7 +61,7 @@ TEXT
         "name"      : "mail"
     },
     {
-        "full_text" : " ${exec pacman -Qu | wc -l} ",
+        "full_text" : " ${exec yaourt -Qu | wc -l} ",
         "color"     : "\#$template1",
         "name"      : "updates"
     },

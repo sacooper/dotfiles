@@ -92,7 +92,7 @@ prompt_git() {
     local LC_ALL="" LC_CTYPE="en_US.UTF-8"
     PL_BRANCH_CHAR=$'\ue0a0'         # 
   }
-  local ref dirty mode repo_path
+  local ref dirty mode repo_path up
   repo_path=$(git rev-parse --git-dir 2>/dev/null)
 
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then
@@ -111,6 +111,26 @@ prompt_git() {
     elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
       mode=" >R>"
     fi
+    local commits=$(git rev-list --left-right origin/master...HEAD)
+    local commit behind=0 ahead=0
+    echo $commits | while read commit
+    do
+      case "$commit" in
+        "<"*) ((behind++)) ;;
+        *)    ((ahead++))  ;;
+      esac
+    done
+    local count="$behind $ahead"
+    case "$count" in
+      "0 0") # equal to upstream
+        up="=" ;;
+      "0 "*) # ahead of upstream
+        up="+${ahead}" ;;
+      *" 0") # behind upstream
+        up="-${behind}" ;;
+      *)      # diverged from upstream
+        up="+${ahead}-${behind}" ;;
+    esac
 
     setopt promptsubst
     autoload -Uz vcs_info
@@ -123,7 +143,7 @@ prompt_git() {
     zstyle ':vcs_info:*' formats ' %u%c'
     zstyle ':vcs_info:*' actionformats ' %u%c'
     vcs_info
-    echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }${vcs_info_msg_0_%% }${mode}"
+    echo -n "${ref/refs\/heads\//$PL_BRANCH_CHAR }(${up})${vcs_info_msg_0_%% }${mode}"
   fi
 }
 

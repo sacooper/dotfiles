@@ -48,6 +48,8 @@ alias tmp='cd `mktemp -d`'
 alias dtmp='tmp="$(pwd)"; if [[ "$tmp" == "/tmp/"* ]]; then cd - 2>/dev/null || cd; rm -rf $tmp; else echo "$tmp not a temporary directory"; fi'
 #alias bindgen='/home/scott/Programming/Rust/rust-bindgen/target/debug/bindgen'
 
+alias music='ncmpcpp'
+
 # Config aliases
 alias vimrc='vim ~/.vimrc'
 alias i3conf='vim ~/.i3/config'

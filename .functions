@@ -223,15 +223,20 @@ function stopwatch(){
 }
 
 function set_disp(){
-    if [ "$1" = "on" ]; then
+    case "$1" in
+    on)
         xrandr --output "$HDMI" --auto --left-of "$MAIN_SCREEN"
-    elif [ "$1" = "off" ]; then
+        ;;
+    off)
         xrandr --output "$HDMI" --off
-    elif [ "$1" = "mirror" ]; then
+        ;;
+    mirror)
         xrandr --output "$HDMI" --same-as "$MAIN_SCREEN" --auto
-    else
+        ;;
+    *)
         echo "USAGE: set_disp [on, off]"
-    fi
+        ;;
+    esac
 }
 
 #megaplay() {
