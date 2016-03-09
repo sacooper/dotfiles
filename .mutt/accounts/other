@@ -1,0 +1,12 @@
+set from = "`pass show Email/other.user`"
+set sendmail = "/usr/bin/msmtp -a Other --from `pass show Email/other.user` --user `pass show Email/other.user`"
+set mbox = "+Other/[Gmail].All Mail"
+set postponed = "+Other/[Gmail].Drafts"
+set record = "+Other/[Gmail].Sent Mail"
+set spoolfile = "+Other/INBOX"
+
+macro index,pager ga "<change-folder>=Other/[Gmail].All Mail<enter>" "Go to all mail"
+macro index gd "<change-folder>=Other/[Gmail].Drafts<enter>" "Go to drafts"
+macro index gi "<change-folder>=Other/INBOX<enter>" "Go to inbox"
+macro index,pager d "<save-message>=Other/Gmail].Trash<enter><enter>" "Trash"
+macro index,pager y "<save-message>=Other/[Gmail].All Mail<enter><enter>" "Archive"

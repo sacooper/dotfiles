@@ -1,0 +1,74 @@
+[general]
+ui = ttyui
+pythonfile = ~/bin/offlineimap.py
+accounts = Primary, Professional, McGill, Other
+maxsyncaccounts=4
+
+[Account Primary]
+autorefresh=15
+localrepository = PrimaryLocal
+remoterepository = PrimaryRemote
+
+[Account Professional]
+autorefresh=15
+localrepository = ProfessionalLocal
+remoterepository = ProfessionalRemote
+
+[Account McGill]
+autorefresh=15
+localrepository = McGillLocal
+remoterepository = McGillRemote
+
+[Account Other]
+autorefresh=15
+localrepository = OtherLocal
+remoterepository = OtherRemote
+ 
+[Repository PrimaryLocal]
+type = Maildir
+localfolders = ~/Mail/Primary
+
+[Repository PrimaryRemote]
+auth_mechanisms = LOGIN
+type = Gmail
+remoteusereval = mailuser("primary")
+remotepasseval = appspecificpass("primary")
+realdelete = no
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+[Repository ProfessionalLocal]
+type = Maildir
+localfolders = ~/Mail/Professional
+
+[Repository ProfessionalRemote]
+auth_mechanisms = LOGIN
+type = IMAP
+remotehost = mail.sacooper.io
+remoteuser = scott
+remotepasseval = mailpass("professional")
+cert_fingerprint = 9537875e7dba8a53cd7233ed6f0343cb0b87ba95
+
+[Repository McGillLocal]
+type = Maildir
+localfolders = ~/Mail/McGill
+
+[Repository McGillRemote]
+auth_mechanisms = LOGIN
+type = IMAP
+remotehost = outlook.office365.com
+remoteusereval = mailuser("mcgill")
+remotepasseval = mailpass("mcgill")
+ssl = yes
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+
+[Repository OtherLocal]
+type = Maildir
+localfolders = ~/Mail/Other
+
+[Repository OtherRemote]
+auth_mechanisms = LOGIN
+type = Gmail
+remoteusereval = mailuser("other")
+remotepasseval = mailpass("other")
+realdelete = no
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt

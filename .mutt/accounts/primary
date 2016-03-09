@@ -1,0 +1,13 @@
+set from = "`pass show Email/primary.user`"
+set sendmail = "/usr/bin/msmtp -a Primary --user `pass show Email/primary.user` --from `pass show Email/primary.user`"
+set mbox = "+Primary/[Gmail].All Mail"
+set postponed = "+Primary/[Gmail].Drafts"
+set record = "+Primary/[Gmail].Sent Mail"
+set spoolfile = "+Primary/INBOX"
+bind editor <space> noop
+macro index ga "<change-folder>=Primary/[Gmail].All Mail<enter>" "Go to all mail"
+macro index gd "<change-folder>=Primary/[Gmail].Drafts<enter>" "Go to drafts"
+macro index gi "<change-folder>=Primary/INBOX<enter>" "Go to inbox"
+macro index gs "<change-folder>=Primary/[Gmail].Starred<enter>" "Go to starred"
+macro index,pager d "<save-message>=Primary/Gmail].Trash<enter><enter>" "Trash"
+macro index,pager y "<save-message>=Primary/[Gmail].All Mail<enter><enter>" "Archive"

@@ -1,2 +1,4 @@
 bin/tmsu
 bin/mount.tmsu
+*.pyc
+.mutt/cache/*

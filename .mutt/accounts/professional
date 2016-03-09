@@ -1,0 +1,8 @@
+set from = "`pass show Email/professional.user`"
+set sendmail = "/usr/bin/msmtp -a Professional --from `pass show Email/professional.user` --user scott"
+set postponed = "+Professional/Drafts"
+set record = "+Professional/Sent"
+set spoolfile = "+Professional/INBOX"
+
+macro index gi "<change-folder>=Profession/INBOX<enter>" "Go to inbox"
+macro index,pager d "<save-message>=Profession/Trash<enter><enter>" "Trash"

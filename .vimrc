@@ -177,7 +177,7 @@ let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
-let g:rooter_patterns = [ '.git', 'Cargo.toml' ]
+let g:rooter_patterns = [ '.git', 'Cargo.toml', 'Makefile']
 
 "Powerline
 set rtp+=/usr/lib/python3.5/site-packages/powerline/bindings/vim

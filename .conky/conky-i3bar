@@ -25,7 +25,8 @@ TEXT='#c0c5ce'
 BG='#2b303b'
 GREEN='#a3be8c'
 RED='#bf616a'
-LEMONCMD="lemonbar -f -misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1 -p -d -F $TEXT -B $BG"
+#LEMONCMD="lemonbar -f -misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1 -p -d -F $TEXT -B $BG"
+LEMONCMD="lemonbar -f -misc-hack-medium-r-normal--0-0-0-0-m-0-iso8859-1 -p -d -F $TEXT -B $BG"
 
 
 offset() {
@@ -151,7 +152,7 @@ while read line; do
             mocp --next &>/dev/null
         fi
     elif [ "$name" = "updates" ]; then
-        terminator --command='echo "Updating"; sudo apt-get update && sudo apt-get upgrade && rm /tmp/ubuntu_updates.txt' &>/dev/null & disown
+        gnome-terminal -x 'zsh' -c '[ -f ~/.zshrc ] && source ~/.zshrc; echo "Upgrading packages: " && sudo pacman -Su'
     elif [ "$name" = "weather" ]; then
         w=300
         x=$(offset "$x" "$w")

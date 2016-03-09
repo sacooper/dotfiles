@@ -1,0 +1,11 @@
+set from = "`pass show Email/mcgill.user`"
+set sendmail = "/usr/bin/msmtp -a McGill --from `pass show Email/mcgill.user` --user `pass show Email/mcgill.user`"
+set mbox = "+McGill/Archives"
+set postponed = "+McGill/Drafts"
+set record = "+McGill/Sent"
+set spoolfile = "+McGill/INBOX"
+
+macro index gd "<change-folder>=McGill/Drafts<enter>" "Go to drafts"
+macro index gi "<change-folder>=McGill/INBOX<enter>" "Go to inbox"
+macro index,pager d "<save-message>=McGill/Trash<enter><enter>" "Trash"
+macro index,pager y "<save-message>=McGill/Archives<enter><enter>" "Archive"

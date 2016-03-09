@@ -60,7 +60,7 @@ TEXT
         "name"      : "mail"
     },
     {
-        "full_text" : " ${exec updates} ",
+        "full_text" : " ${exec pacman -Qu | wc -l} ",
         "color"     : "\#$template1",
         "name"      : "updates"
     },

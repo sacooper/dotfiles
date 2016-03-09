@@ -1,0 +1,55 @@
+#source "~/.mutt/colors/colors.muttrc"
+#source "~/.mutt/colors/solarized_dark.muttrc"
+#source "~/.mutt/colors/base16_ocean.muttrc"
+source "~/.mutt/gpg.rc"
+set sidebar_visible = yes
+set sidebar_width = 25
+
+# IMAP: offlineimap
+set folder = "~/Mail"
+source ~/.mutt/mailboxes
+source ~/.mutt/accounts/primary
+
+macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/primary<enter><change-folder>!<enter>'
+macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/accounts/other<enter><change-folder>!<enter>'
+macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/accounts/professional<enter><change-folder>!<enter>'
+macro index <f5> '<sync-mailbox><enter-command>source ~/.mutt/accounts/mcgill<enter><change-folder>!<enter>'
+
+set sort=threads
+set sort_aux=date-sent
+
+#nice date formats taken from ubuntuusers.de
+set date_format="%a, %d. %b %H:%M"
+set index_format="%4C %Z %D %-22.22F (%?l?%4l&%4c?) %s"
+set folder_format="%2C %8s %d %t %N %f"
+set pager_index_lines=10
+
+# Vim like stuff
+bind pager j next-line
+bind pager k previous-line
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+bind pager gg top
+bind pager G bottom
+bind attach,index gg first-entry
+bind attach,index G last-entry
+
+bind index \Cp  sidebar-prev
+bind index \Cn  sidebar-next
+bind index \Co  sidebar-open
+bind pager \Cp  sidebar-prev
+bind pager \Cn  sidebar-next
+bind pager \Co  sidebar-open
+
+set pgp_use_gpg_agent = yes
+set pgp_autosign = no
+set pgp_sign_as = E8571087
+set pgp_timeout = 21600
+set crypt_autosign = no
+set crypt_replyencrypt = yes
+
+set timeout=10
+
+set header_cache="~/.mutt/cache"
+set status_format       = "(Total: %b)───(%f %m%?n? [+%n]?%?d? [-%d]?%?t? [*%t]?)%?p?───(%p draft)?─%>─(%P)───"
+set editor="vim -c 'set spell spelllang=en'"

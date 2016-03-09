@@ -11,9 +11,6 @@ fi
 # OPAM configuration
 . /home/scott/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
@@ -31,13 +28,7 @@ export PATH="$HOME/bin:$PATH"
 # cargo-extras
 export PATH="/home/scott/.multirust/toolchains/beta/cargo/bin:$PATH"
 
-# Opam
-. /home/scott/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
-
-
 # Base16 Shell
 #BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
-
-exec zsh

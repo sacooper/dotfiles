@@ -55,3 +55,8 @@ alias rubber_fix="openout_any=a rubber --unsafe -c 'setlist arguments --shell-es
 alias tmp='cd `mktemp -d`'
 alias dtmp='tmp="$(pwd)"; if [[ "$tmp" == "/tmp/"* ]]; then cd - 2>/dev/null || cd; rm -rf $tmp; else echo "$tmp not a temporary directory"; fi'
 alias bindgen='/home/scott/Programming/Rust/rust-bindgen/target/debug/bindgen'
+
+alias vimrc='vim ~/.vimrc'
+alias i3conf='vim ~/.i3/config'
+alias zshrc='vim ~/.zshrc'
+alias conkyrc='vim ~/.conky/.conkyrc'
