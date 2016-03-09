@@ -1,12 +1,13 @@
 # Path to your oh-my-zsh installation.
   export ZSH=/home/scott/.oh-my-zsh
+ZSH_CUSTOM=$HOME/.zsh_custom
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 #ZSH_THEME="robbyrussell"
-ZSH_THEME="agnoster" # (this is one of the fancy ones)
+ZSH_THEME="agnoster_custom" # (this is one of the fancy ones)
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
