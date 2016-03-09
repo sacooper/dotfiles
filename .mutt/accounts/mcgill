@@ -1,5 +1,5 @@
-set from = "`pass show Email/mcgill.user`"
-set sendmail = "/usr/bin/msmtp -a McGill --from `pass show Email/mcgill.user` --user `pass show Email/mcgill.user`"
+set from = $my_mcgill_user
+set sendmail = "/usr/bin/msmtp -a McGill --from $my_mcgill_user --user $my_mcgill_user"
 set mbox = "+McGill/Archives"
 set postponed = "+McGill/Drafts"
 set record = "+McGill/Sent"

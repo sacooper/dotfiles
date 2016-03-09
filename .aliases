@@ -18,44 +18,37 @@ for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
 done
 
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
-alias sniff="sudo ngrep -d 'wlan0' -t '^(GET|POST) ' 'tcp and port 80'"
+alias sniff='sudo ngrep -d "$WIFI_ADAPTER" -t "^(GET|POST) " "tcp and port 80"'
 alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
 
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias remote_ip="dig +short myip.opendns.com @resolver1.opendns.com"
 
 alias sudo='sudo '
 
-
 alias diskuse='df -h | grep --color=never -e /dev/sd -e Filesystem'
-alias ksp='primusrun /home/scott/KSP_linux/KSP.x86_64'
+#alias ksp='primusrun /home/scott/KSP_linux/KSP.x86_64'
 alias sl='sl -e'
 alias LS='LS -e'
-alias sqlmap='python /opt/sqlmap/sqlmap.py'
-alias burpsuite='java -jar /opt/burpsuite_free_v1.6.jar'
+#alias sqlmap='python /opt/sqlmap/sqlmap.py'
+#alias burpsuite='java -jar /opt/burpsuite_free_v1.6.jar'
 alias mcgill='cd ~/Dropbox/Programming/McGill'
 alias lessc='less -R'
 alias play='mplayer -fs'
 
-megaplay() {
-	if [ -n "$1" ]; then
-		megaget "$1" --path - | vlc -
-	else
-		echo "usage: megaplay Path/To/File/On/Mega"
-	fi
-}
 
 
 
-alias fuck='$(thefuck $(fc -ln -1))'
+#alias fuck='$(thefuck $(fc -ln -1))'
 
-alias sync_tc='rsync --progress -h  /home/scott/TC $PRIMARY:/home/scott/TC'
+#alias sync_tc='rsync --progress -h  /home/scott/TC $PRIMARY:/home/scott/TC'
 
-alias muslrustc='/opt/rust-musl/musldist/bin/rustc --target=x86_64-unknown-linux-musl'
-alias rubber_fix="openout_any=a rubber --unsafe -c 'setlist arguments --shell-escape'"
+#alias muslrustc='/opt/rust-musl/musldist/bin/rustc --target=x86_64-unknown-linux-musl'
+#alias rubber_fix="openout_any=a rubber --unsafe -c 'setlist arguments --shell-escape'"
 alias tmp='cd `mktemp -d`'
 alias dtmp='tmp="$(pwd)"; if [[ "$tmp" == "/tmp/"* ]]; then cd - 2>/dev/null || cd; rm -rf $tmp; else echo "$tmp not a temporary directory"; fi'
-alias bindgen='/home/scott/Programming/Rust/rust-bindgen/target/debug/bindgen'
+#alias bindgen='/home/scott/Programming/Rust/rust-bindgen/target/debug/bindgen'
 
+# Config aliases
 alias vimrc='vim ~/.vimrc'
 alias i3conf='vim ~/.i3/config'
 alias zshrc='vim ~/.zshrc'

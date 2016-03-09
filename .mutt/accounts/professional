@@ -1,5 +1,5 @@
-set from = "`pass show Email/professional.user`"
-set sendmail = "/usr/bin/msmtp -a Professional --from `pass show Email/professional.user` --user scott"
+set from = "$my_professional_user"
+set sendmail = "/usr/bin/msmtp -a Professional --from $my_professional_user --user scott"
 set postponed = "+Professional/Drafts"
 set record = "+Professional/Sent"
 set spoolfile = "+Professional/INBOX"

@@ -1,5 +1,5 @@
-set from = "`pass show Email/primary.user`"
-set sendmail = "/usr/bin/msmtp -a Primary --user `pass show Email/primary.user` --from `pass show Email/primary.user`"
+set from = "$my_primary_user"
+set sendmail = "/usr/bin/msmtp -a Primary --user $my_primary_user --from $my_primary_user"
 set mbox = "+Primary/[Gmail].All Mail"
 set postponed = "+Primary/[Gmail].Drafts"
 set record = "+Primary/[Gmail].Sent Mail"

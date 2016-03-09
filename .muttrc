@@ -5,6 +5,11 @@ source "~/.mutt/gpg.rc"
 set sidebar_visible = yes
 set sidebar_width = 25
 
+set my_mcgill_user = `pass show Email/mcgill.user`
+set my_primary_user = `pass show Email/primary.user`
+set my_other_user = `pass show Email/other.user`
+set my_proffessinal_user = `pass show Email/professional.user`
+
 # IMAP: offlineimap
 set folder = "~/Mail"
 source ~/.mutt/mailboxes

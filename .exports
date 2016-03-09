@@ -1,0 +1,8 @@
+#!/bin/bash
+export WIFI_ADAPTER='wlp8s0'
+export MAIN_SCREEN="eDP-1"
+export HDMI="HDMI-1"
+export PRIMARY='104.236.7.239'
+export RUST_SRC_PATH='/usr/local/src/rust/src'
+export SHRUG='¯\_(ツ)_/¯'
+# export LD_LIBRARY_PATH="/usr/local/lib:/usr/local/lib/:/opt/rust-musl/musldist/lib:$LD_LIBRARY_PATH"

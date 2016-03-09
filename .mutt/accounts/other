@@ -1,5 +1,5 @@
-set from = "`pass show Email/other.user`"
-set sendmail = "/usr/bin/msmtp -a Other --from `pass show Email/other.user` --user `pass show Email/other.user`"
+set from = "$my_other_user"
+set sendmail = "/usr/bin/msmtp -a Other --from $my_other_user --user $my_other_user"
 set mbox = "+Other/[Gmail].All Mail"
 set postponed = "+Other/[Gmail].Drafts"
 set record = "+Other/[Gmail].Sent Mail"

@@ -234,6 +234,14 @@ function set_disp(){
     fi
 }
 
+#megaplay() {
+	#if [ -n "$1" ]; then
+		#megaget "$1" --path - | vlc -
+	#else
+		#echo "usage: megaplay Path/To/File/On/Mega"
+	#fi
+#}
+
 function compile_tex(){
     printf "Progress: [                    ]  0%%"
     for i in {1..5}; do

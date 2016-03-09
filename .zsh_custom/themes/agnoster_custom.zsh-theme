@@ -183,7 +183,7 @@ prompt_status() {
   local symbols
   symbols=()
   #local ret_status="%(?:%{$fg_bold[green]%}➜ :%{$fg_bold[red]%}➜ )"
-  local ret_status="%(?:%{$fg_bold[green]%b%}➜:%{$fg_bold[red]%b%}✘)"
+  local ret_status="%(?:%{$fg_bold[green]%}➜%b:%{$fg_bold[red]%}✘%b)"
   #[[ $RETVAL -ne 0 ]] && symbols+="%{%F{red}%}✘"
   symbols+=$ret_status
   [[ $UID -eq 0 ]] && symbols+="%{%F{yellow}%}⚡"
