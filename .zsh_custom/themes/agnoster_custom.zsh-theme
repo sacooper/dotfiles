@@ -116,6 +116,7 @@ prompt_git() {
     echo $commits | while read commit
     do
       case "$commit" in
+        "") ;;
         "<"*) ((behind++)) ;;
         *)    ((ahead++))  ;;
       esac

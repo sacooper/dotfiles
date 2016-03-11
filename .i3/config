@@ -190,7 +190,8 @@ bar {
 #exec --no-startup-id transmission-gtk -m
 exec --no-startup-id nitrogen --restore	
 #exec --no-startup-id owncloud
-exec --no-startup-id indicator-sound-switcher
+#exec --no-startup-id indicator-sound-switcher
+#exec --no-startup-id redshift
 
 bindsym $mod+Control+l exec i3lock -c 000000 
 bindsym XF86Sleep exec i3lock -c 000000 && sudo pm-suspend
@@ -200,22 +201,16 @@ bindsym XF86AudioLowerVolume exec amixer -D pulse sset Master unmute && amixer -
 bindsym XF86MonBrightnessUp exec light -A 10
 bindsym XF86MonBrightnessDown exec light -U 10
 
-#bindsym $mod+x exec chromium-browser
 bindsym $mod+x exec uzbl-tabbed
 bindsym $mod+Shift+x exec chromium
-bindsym $mod+p exec mocp -G
-bindsym $mod+c exec clip_pass
+#bindsym $mod+p exec ncmpcpp play # TODO: Can't figure out how to make ncmpcpp toggle
+bindsym $mod+c exec clip_pass # TODO 
 
-exec /usr/bin/gnome-settings-daemon
-exec shutter --min_at_startup
 #exec dropbox start
 
 # Moving workspaces between monitors
 bindsym $mod+n move workspace to output left
 bindsym $mod+m move workspace to output right
-#bindsym $mod+t workspace 1; exec thunderbird
-#
-#
 
 
 # i3-gaps stuff

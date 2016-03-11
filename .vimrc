@@ -45,6 +45,8 @@ inoremap <C-l> <Esc>:tabn<CR>
 " Map 0 to logical start of line 
 nnoremap 0 ^
 
+" Need to do this before loading latexlivepreview
+"let g:livepreview_previewer = 'mupdf ' 
 
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
@@ -67,8 +69,10 @@ Plugin 'The-NERD-Commenter'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'airblade/vim-rooter'
+Plugin 'tpope/vim-unimpaired'
+"Plugin 'Valloric/YouCompleteMe'
 "Plugin 'lervag/vimtex'
-"Plugin 'ying17zi/vim-live-latex-preview'
+"Plugin 'ying17zi/vim-live-laevincetex-preview'
 
 call vundle#end()            " required
 filetype plugin indent on    " requird
