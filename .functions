@@ -268,7 +268,8 @@ function compile_tex(){
 }
 
 function set_vol() {
-    pacmd set-sink-volume 1 "$(calc $1*65535 | sed 's/\..*//')"
+    vol="$(echo "$1*65535" | bc | sed 's/\..*//')"
+    pacmd set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo "$vol"
 }
 
 function aur_dl(){
@@ -280,3 +281,29 @@ function aur_dl(){
     sudo git clone "https://aur.archlinux.org/$1.git"
     sudo chmod a+rw "$1"
 }
+
+function todo(){
+    if [ $# -eq 0 ]; then
+        todo.sh ls
+    else
+        todo.sh $@
+    fi
+}
+
+function search(){
+    if [ $# -eq 0 ]; then
+        echo "Usage: search [what]"
+    else
+        w3m "https://www.google.com/search?q=$(echo $@ | sed 's/ /%20/g')"
+    fi
+}
+
+#function todo(){
+    #jshon -F "$HOME/.todo" -S -k | sort -t'-' -k1n -k2n -k3n | while read k; do
+        #printf "$k:\n"
+        #jshon -F "$HOME/.todo" -S -e "$k" -a -u | while read v; do
+            #printf "%4s%s\n" "" "$v"
+        #done
+    #done
+#}
+# vim: set ft=sh:

@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/scott/.oh-my-zsh
+export ZSH=/home/scott/.oh-my-zsh
 ZSH_CUSTOM=$HOME/.zsh_custom
 
 # Set name of the theme to load.
@@ -51,13 +51,11 @@ ZSH_THEME="agnoster_custom" # (this is one of the fancy ones)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git git-flow gitignore ruby web-search)
+plugins=(git gitignore ruby web-search)
 
 # User configuration
 
-  export PATH="/home/scott/.opam/4.02.1/bin:/home/scott/.multirust/toolchains/beta/cargo/bin:/home/scott/bin:/usr/local/heroku/bin:/home/scott/.opam/4.02.1/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl"
 # export MANPATH="/usr/local/man:$MANPATH"
-
 source $ZSH/oh-my-zsh.sh
 
 # You may need to manually set your language environment
@@ -97,16 +95,13 @@ for file in ~/.{path,exports,aliases,functions,extra,vars}; do
 done;
 unset file;
 
-export TERMCMD='gnome-terminal'
+export TERMCMD='xfce4-terminal'
 export TERMINAL="$TERMCMD"
 export CPATH=':/usr/lib/openmpi/include/'
-
-export PATH="$HOME/bin:$PATH"
-
-# cargo-extras
-export PATH="/home/scott/.multirust/toolchains/beta/cargo/bin:$PATH"
 
 # Base16 Shell
 #BASE16_SHELL="$HOME/.config/base16-shell/base16-default.dark.sh"
 BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
 [[ -s "$BASE16_SHELL" ]] && source "$BASE16_SHELL"
+
+eval "$(direnv hook "$SHELL")"

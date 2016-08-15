@@ -8,17 +8,21 @@ set sidebar_width = 25
 set my_mcgill_user = `pass show Email/mcgill.user`
 set my_primary_user = `pass show Email/primary.user`
 set my_other_user = `pass show Email/other.user`
-set my_proffessinal_user = `pass show Email/professional.user`
+set my_professional_user = `pass show Email/professional.user`
 
 # IMAP: offlineimap
 set folder = "~/Mail"
 source ~/.mutt/mailboxes
 source ~/.mutt/accounts/primary
 
-macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/primary<enter><change-folder>!<enter>'
-macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/accounts/other<enter><change-folder>!<enter>'
-macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/accounts/professional<enter><change-folder>!<enter>'
-macro index <f5> '<sync-mailbox><enter-command>source ~/.mutt/accounts/mcgill<enter><change-folder>!<enter>'
+macro index 1 '<sync-mailbox><enter-command>source ~/.mutt/accounts/primary<enter><change-folder>!<enter>'
+macro index 2 '<sync-mailbox><enter-command>source ~/.mutt/accounts/other<enter><change-folder>!<enter>'
+macro index 3 '<sync-mailbox><enter-command>source ~/.mutt/accounts/professional<enter><change-folder>!<enter>'
+macro index 4 '<sync-mailbox><enter-command>source ~/.mutt/accounts/mcgill<enter><change-folder>!<enter>'
+#macro index <f2> '<sync-mailbox><enter-command>source ~/.mutt/accounts/primary<enter><change-folder>!<enter>'
+#macro index <f3> '<sync-mailbox><enter-command>source ~/.mutt/accounts/other<enter><change-folder>!<enter>'
+#macro index <f4> '<sync-mailbox><enter-command>source ~/.mutt/accounts/professional<enter><change-folder>!<enter>'
+#macro index <f5> '<sync-mailbox><enter-command>source ~/.mutt/accounts/mcgill<enter><change-folder>!<enter>'
 
 set sort=threads
 set sort_aux=date-sent
@@ -38,6 +42,7 @@ bind pager gg top
 bind pager G bottom
 bind attach,index gg first-entry
 bind attach,index G last-entry
+bind index gr group-reply
 
 bind index \Cp  sidebar-prev
 bind index \Cn  sidebar-next

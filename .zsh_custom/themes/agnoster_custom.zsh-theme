@@ -111,7 +111,7 @@ prompt_git() {
     elif [[ -e "${repo_path}/rebase" || -e "${repo_path}/rebase-apply" || -e "${repo_path}/rebase-merge" || -e "${repo_path}/../.dotest" ]]; then
       mode=" >R>"
     fi
-    local commits=$(git rev-list --left-right origin/master...HEAD)
+    local commits=$(git rev-list --left-right origin/master...HEAD 2>/dev/null)
     local commit behind=0 ahead=0
     echo $commits | while read commit
     do

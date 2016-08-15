@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#PICTURE="/home/scott/Pictures/Snoqualmie_Pass_WA_resize.png"
+PICTURE="/home/scott/Pictures/hud.png"
+RED='#bf616a'
+GREEN='#a3be8c'
+BLACK='#2b303b'
+WHITE='#c0c5ce'
+
+i3lock -i "${PICTURE}" -w "${RED}" -o "${GREEN}" -l "${WHITE}"

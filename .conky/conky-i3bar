@@ -19,12 +19,11 @@ exec conky -c "$HOME/.conky/.conkyrc" 2>/dev/null &
 OPEN=0
 LAST=""
 
-
-
 TEXT='#c0c5ce'
 BG='#2b303b'
-GREEN='#a3be8c'
 RED='#bf616a'
+YELLOW='#ebcb8b'
+GREEN='#a3be8c'
 #LEMONCMD="lemonbar -f -misc-fixed-medium-r-normal--13-100-100-100-c-70-iso8859-1 -p -d -F $TEXT -B $BG"
 LEMONCMD="lemonbar -f -misc-hack-medium-r-normal--0-0-0-0-m-0-iso8859-1 -p -d -F $TEXT -B $BG"
 
@@ -72,12 +71,17 @@ while read line; do
 
         x=$(offset "$x" "$w")
         x=$((x-w/2))
-
-        #i3-nagbar -t warning -m "$line" &>/dev/null
-
         i=0
-        todo -b | while read t; do
-            echo "  $t" | $LEMONCMD -g "$w""x20+$x+$((20*i+20))" &
+        #todo -b | while read t; do
+        todo.sh ls | head -n-2 | sed -r "s/\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]//g" | sed 's/^[0-9]* *//' | while read t; do
+            if echo "$t" | grep '^(A)' &>/dev/null; then
+                t="%{F$RED}$t%{F-}"
+            elif echo "$t" | grep '^(B)' &>/dev/null; then
+                t="%{F$YELLOW}$t%{F-}"
+            elif echo "$t" | grep '^(C)' &>/dev/null; then
+                t="%{F$GREEN}$t%{F-}"
+            fi
+            echo " - $t" | $LEMONCMD -g "$w""x20+$x+$((20*i+20))" &
             i=$((i+1))
         done
         OPEN=1
@@ -152,7 +156,7 @@ while read line; do
             mocp --next &>/dev/null
         fi
     elif [ "$name" = "updates" ]; then
-        gnome-terminal -x 'zsh' -c '[ -f ~/.zshrc ] && source ~/.zshrc; echo "Upgrading packages: " && sudo pacman -Su'
+        gnome-terminal -x 'zsh' -c '[ -f ~/.zshrc ] && source ~/.zshrc; echo "Upgrading packages: " && sudo yaourt -Syu'
     elif [ "$name" = "weather" ]; then
         w=300
         x=$(offset "$x" "$w")

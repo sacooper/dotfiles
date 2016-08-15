@@ -1,0 +1,11 @@
+#!/bin/bash
+. "$HOME/.uzbl/settings.sh"
+
+# Make sure we can write to history file
+>> "$UZBL_HISTORY_FILE" || exit 1
+
+# Don't do anything if history disabled
+[ -n "$UZBL_NO_HISTORY" ] && exit 0
+
+# Write to history
+echo "$( date +'%Y-%m-%d %H:%M:%S' ) $UZBL_URI $UZBL_TITLE" >> "$UZBL_HISTORY_FILE"

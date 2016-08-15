@@ -1,0 +1,8 @@
+#!/bin/bash
+
+. "$HOME/.uzbl/settings"
+
+# Make sure we can read the history file
+[ -r $UZBL_HISTORY_FILE ] || exit 1
+
+

@@ -9,8 +9,7 @@ if (window.location.href.match("mycourses2.mcgill.ca")) {
                 setTimeout(function(){
                     window.history.back();
                 }, 4000);
-                //window.history.back();
-            }
+            } 
         }
     } catch(e){
         alert(e);

@@ -1,0 +1,17 @@
+#!/usr/bin/ruby
+
+require 'json'
+
+sep='   '
+
+raw = `i3-msg -t get_workspaces`
+data = JSON.parse(raw, symbolize_names: true)
+x = data.select {|ws| ws[:num] != -1}.map do |ws|
+    if ws[:visible] then
+        "<span font='15' underline='double'>#{ws[:num]}</span> "
+    else
+        ws[:num]
+    end
+end
+
+puts (x.join sep).strip

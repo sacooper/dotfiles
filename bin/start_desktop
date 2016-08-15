@@ -1,0 +1,16 @@
+#!/usr/bin/bash
+
+GIFBG="/home/scott/Pictures/quark.gif"
+LOC="/home/scott/dotfiles/.conky_hud/"
+
+/home/scott/bin/gifbg "$GIFBG" & 
+conky -c "$LOC/conky.conf" & 
+#conky -c "$LOC/conky_biclock" & 
+conky -c "$LOC/conky_cpus" &
+conky -c "$LOC/conky_cal" &
+conky -c "$LOC/conky_weather" &
+conky -c "$LOC/conky_hdd" &
+conky -c "$LOC/conky_connections" &
+#conky -c "$LOC/conky_processes" &
+conky -c "$LOC/conky_sensors" &
+conky -c "$LOC/conky_asset" &

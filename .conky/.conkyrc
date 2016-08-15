@@ -1,8 +1,7 @@
 out_to_x no own_window no
 out_to_console yes
 background no
-max_text_width 0
-
+max_text_width 0 
 # Update interval in seconds
 update_interval 2.0
 
@@ -51,17 +50,18 @@ TEXT
 [
     {
         #"full_text" : " ${if_match "${moc_song}"!="no song"}${moc_song}: ${moc_artist} (${moc_curtime}/${moc_totaltime}) $endif",
-        "full_text" : " ${exec ncmpcpp --current-song} ",
+        "full_text": "$if_mpd_playing $mpd_artist - $mpd_title ($mpd_elapsed/$mpd_length) $endif",
         "color": "\#$template1",
         "name"      : "music"
     },
     {
         "full_text" : "Mail: ${exec find $HOME/Mail/*/INBOX/new -type f | wc -l}",
-        "color"     : ${if_match ${exec find $HOME/Mail/*/INBOX/new -type f | wc -l} == 0}"\#$template1"$else"\#$template4"$endif,
+        "color"     : ${if_match "${exec pgrep offlineimap}" == ""}"\#$template3"$else${if_match ${exec find $HOME/Mail/*/INBOX/new -type f | wc -l} == 0}"\#$template1"$else"\#$template4"$endif$endif,
         "name"      : "mail"
     },
     {
-        "full_text" : " ${exec yaourt -Qu | wc -l} ",
+        "full_text" : " ${exec cat /tmp/pending_updates } ",
+        #"full_text" : "",
         "color"     : "\#$template1",
         "name"      : "updates"
     },
@@ -148,11 +148,13 @@ TEXT
         $endif
     $endif
     ${if_match 4<=3}{"full_text" : " ${exec agenda}","color"     : "\#$template1","name"      : "agenda"},${endif}
-    ${if_match ${exec todo -c} > 0}
+    ${if_match ${exec todo.sh count} > 0}
     {
-        "full_text" : " TODO: ${exec todo -c } (${exec todo -t}) ",
-        "color"     : ${if_match ${exec todo -t} > 0} "\#$template1" $else "\#$template3" $endif,
+        "full_text" : "TODO: ${exec todo.sh count}",
+        "color"     : "\#$template1",
         "name"      : "todo"
+        #"full_text" : " TODO: ${exec jshon -F /home/scott/.todo -a -l | paste -s -d '+' | bc} (${exec echo $((($(jshon -F .todo -k | sort -k1n -k2n -k3n -t'-' | head -n1 | xargs date +"%s" -d) - $(date +"%s") + 60*60*23)/60/60/24))}) ",
+        #"color"     : ${if_match ${exec $((($(jshon -F .todo -k | sort -k1n -k2n -k3n -t'-' | head -n1 | xargs date +"%s" -d) - $(date +"%s") + 60*60*23)/60/60/24))} > 0} "\#$template1" $else "\#$template3" $endif,
     },
     $endif
     ${if_match "${exec head -n1 /tmp/weather.txt 2>/dev/null}" != ""}

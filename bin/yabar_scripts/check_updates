@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+#echo "Updates: $(checkupdates | wc -l)";
+
+count=$(checkupdates | wc -l);
+if [ $count -gt 0 ]; then
+    echo " $count"
+else
+    echo
+fi

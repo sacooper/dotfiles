@@ -16,7 +16,12 @@ if __name__ == '__main__':
     u = urllib.parse.urlparse(uri)
     if u.scheme == 'mailto':
         detach_open(['xterm', '-e', 'mail', u.path])
+        exit(0)
     elif u.scheme == 'git':
         detach_open(['git', 'clone', '--', uri], cwd=os.path.expanduser('~/Downloads'))
+        exit(0)
     elif u.scheme == 'magnet':
-        detach_open(['transmission-remote', '-a', uri])
+        detach_open(['transmission-remote', '9092', '-a', uri])
+        exit(0)
+    else:
+        exit(1)

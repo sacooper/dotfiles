@@ -36,8 +36,10 @@ alias lessc='less -R'
 alias play='mplayer -fs'
 alias music='ncmpcpp'
 alias vi='vim'
-alias v='vim'
+alias v='vim -p'
 alias r='ranger'
+
+alias here='$TERMINAL'
 
 #alias fuck='$(thefuck $(fc -ln -1))'
 
@@ -48,10 +50,26 @@ alias r='ranger'
 alias tmp='cd `mktemp -d`'
 alias dtmp='tmp="$(pwd)"; if [[ "$tmp" == "/tmp/"* ]]; then cd - 2>/dev/null || cd; rm -rf $tmp; else echo "$tmp not a temporary directory"; fi'
 #alias bindgen='/home/scott/Programming/Rust/rust-bindgen/target/debug/bindgen'
+#
 
+alias renewdhcp='sudo dhclient -r wlp8s0 && sudo dhclient wlp8s0'
+
+alias sum='paste -s -d"+" | bc'
+alias mult='paste -s -d"*" | bc'
 
 # Config aliases
 alias vimrc='vim ~/.vimrc'
 alias i3conf='vim ~/.i3/config'
 alias zshrc='vim ~/.zshrc'
 alias conkyrc='vim ~/.conky/.conkyrc'
+alias eclimd='/usr/lib/eclipse/eclimd &>/dev/null & disown'
+
+alias sketchup='wine "/home/scott/.wine/drive_c/Program Files (x86)/SketchUp/SketchUp 2016/SketchUp.exe"'
+
+alias getmail='pkill offlineimap --signal SIGUSR1'
+
+alias ghci='stack ghci'
+
+
+#alias todo='todo.sh'
+# vim:set ft=sh

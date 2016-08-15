@@ -4,5 +4,6 @@ set postponed = "+Professional/Drafts"
 set record = "+Professional/Sent"
 set spoolfile = "+Professional/INBOX"
 
-macro index gi "<change-folder>=Profession/INBOX<enter>" "Go to inbox"
-macro index,pager d "<save-message>=Profession/Trash<enter><enter>" "Trash"
+macro index gi "<change-folder>=Professional/INBOX<enter>" "Go to inbox"
+macro index,pager d "<save-message>=Professional/Trash<enter><enter>" "Trash"
+macro index,pager y "<save-message>=Professional/Archives<enter><enter>" "Archive"

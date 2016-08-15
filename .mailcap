@@ -1,2 +1,5 @@
-application/pdf; evince %s
-text/html; uzbl %s
+application/pdf;    evince %s
+text/html;          x-www-browser %s
+image/png;          feh %s
+image/jpeg;         feh %s
+image/jpg;          feh %s

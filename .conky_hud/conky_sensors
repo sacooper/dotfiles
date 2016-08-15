@@ -1,0 +1,43 @@
+update_interval 1
+background no
+text_buffer_size 2048
+double_buffer yes
+no_buffers yes
+#####################
+# - Text settings - #
+#####################
+use_xft yes
+xftfont hack:pixelsize=14
+xftalpha 1
+draw_shades no
+override_utf8_locale yes
+#############################
+# - Window specifications - #
+#############################
+own_window yes
+own_window_type override
+own_window_class Conky
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+own_window_colour 000000
+own_window_argb_visual yes
+own_window_argb_value 0
+draw_graph_borders no
+default_color a5adff
+alignment top_left
+gap_x 620
+gap_y 300
+color3 af2445
+
+minimum_size 700 600
+maximum_width 700
+lua_load /home/scott/dotfiles/.conky_hud/sensors.lua
+lua_draw_hook_pre sensors_rings
+TEXT
+${font Monospace:pixelsize=12}
+${voffset 200}${goto 30}CPU
+${goto 30}${exec sensors | grep Phys | cut -c 18-24}
+${voffset -30}${goto 640}GPU
+${goto 620}${exec nvidia-settings -q gpucoretemp -t | head -n 1}.0°C
+
+# vim: ft=conkyrc

@@ -68,11 +68,17 @@ Plugin 'flazz/vim-colorschemes'
 Plugin 'The-NERD-Commenter'
 Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
-Plugin 'airblade/vim-rooter'
+"Plugin 'airblade/vim-rooter'
 Plugin 'tpope/vim-unimpaired'
+Bundle 'ervandew/supertab'
 "Plugin 'Valloric/YouCompleteMe'
-"Plugin 'lervag/vimtex'
+Plugin 'lervag/vimtex'
 "Plugin 'ying17zi/vim-live-laevincetex-preview'
+Plugin 'fatih/vim-go'
+Plugin 'direnv/direnv.vim'
+
+Plugin 'eagletmt/ghcmod-vim'
+Plugin 'eagletmt/neco-ghc'
 
 call vundle#end()            " required
 filetype plugin indent on    " requird
@@ -123,8 +129,10 @@ set cursorline
 set wildmenu
 set incsearch           " search as characters are entered
 set hlsearch            " highlight matches
+
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
+"nnoremap <leader><space> :call UnhighlightEverything()<cr>
 set foldlevelstart=10   " open most folds by default
 
 nnoremap <leader>f za
@@ -140,7 +148,7 @@ vnoremap <silent> s //e<C-r>=&selection=='exclusive'?'+1':''<CR><CR>
             \:<C-u>call histdel('search',-1)<Bar>let @/=histget('search',-1)<CR>gv
 omap s :normal vs<CR>
 
-command Here silent !here
+command Here silent !$TERMINAL
 
 nnoremap <leader>. :CtrlPTag<cr>
 
@@ -177,9 +185,17 @@ execute "set rtp+=" . g:opamshare . "/merlin/vim"
 let g:syntastic_ocaml_checkers = ['merlin']
 let g:syntastic_ignore_files = ['\.mll$','\.mly$']
 
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+let g:SuperTabDefaultCompletionType = '<C-n>'
+
+"let g:ycm_confirm_extra_conf = 0
+let g:ycm_global_ycm_extra_conf = '/usr/share/vim/vimfiles/third_party/ycmd/ycmd/tests/clang/testdata/.ycm_extra_conf.py'
+
+" better key bindings for UltiSnipsExpandTrigger
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 let g:rooter_patterns = [ '.git', 'Cargo.toml', 'Makefile']
 
@@ -187,4 +203,12 @@ let g:rooter_patterns = [ '.git', 'Cargo.toml', 'Makefile']
 set rtp+=/usr/lib/python3.5/site-packages/powerline/bindings/vim
 set laststatus=2
 
+" Make from child directory, without actually 'cd'ing there
+"set makeprg=[[\ -f\ Makefile\ ]]\ &&\ make\ \\\|\\\|\ make\ -C\ ..
+set makeprg=if\ [[\ -f\ Makefile\ ]];\ then\ make;\ else\ make\ -C\ ..;\ fi
+
+let g:EclimCompletionMethod = 'omnifunc'
+
 set modeline
+
+set t_ut=

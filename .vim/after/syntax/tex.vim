@@ -1,15 +1,12 @@
 set spell
-set wrap
-set linebreak
-set nolist  " list disables linebreak
+"set wrap
+"set linebreak
+"set nolist  " list disables linebreak
 syntax sync fromstart
-
-"inoremap -> $\to$
-"inoremap => $\Rightarrow$
-"inoremap ... \ldots
 
 autocmd Filetype tex setl updatetime=1000
 nmap <leader>p :LLPStartPreview<cr>
+let g:tex_flavor='latex'
 
 "nnoremap <leader>bw i\textbf{<esc>ea}<esc>
 "nnoremap <leader>iw i\emph{<esc>ea}<esc>

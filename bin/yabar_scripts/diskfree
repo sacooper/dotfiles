@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+icon=" "
+pretty=$(df -h | grep home | awk '{print $4}')
+bytes=$(df | grep home | awk '{print $4}')
+
+if [ $bytes -lt 26214400 ]; then # 25 GB
+    echo "!Y u 0xffebcb8b Y!$icon$pretty"
+elif [ $bytes -lt 10485760 ]; then # 10 GB
+    echo "!Y u 0xffebcb8b Y!$icon$pretty"
+else
+    echo "$icon$pretty"
+fi

@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+title=" "
+count=$(find $HOME/Mail/*/INBOX/new -type f | wc -l)
+fmt=""
+
+if [ -z "$(pgrep offlineimap)" ]; then
+    fmt="!Y u 0xffbf6161 Y!"
+elif [ $count -gt 0 ]; then
+    fmt="!Y u 0xffebcb8b Y!"
+fi
+echo "$fmt$title$count";

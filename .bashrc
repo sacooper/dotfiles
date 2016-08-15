@@ -7,7 +7,6 @@ if ! shopt -oq posix; then
     fi
 fi
 
-
 # OPAM configuration
 . /home/scott/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
 
